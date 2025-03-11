@@ -2,7 +2,7 @@
 
 https://github.com/fliptanedo/paper-template-2025
 
-A LaTeX paper template that I use for papers and notes. Replaces [2022 version](https://github.com/fliptanedo/flip-paper-template-2022), [2021 version](https://github.com/fliptanedo/flip-paper-template-2021) and [even older version](https://github.com/fliptanedo/flip-paper-template).
+A LaTeX paper template that I use for papers and notes. Replaces [2022 version](https://github.com/fliptanedo/paper-template-2022), [2021 version](https://github.com/fliptanedo/flip-paper-template-2021) and [even older version](https://github.com/fliptanedo/flip-paper-template).
 
 By Flip Tanedo (flip.tanedo@ucr.edu)
 
