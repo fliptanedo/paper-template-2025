@@ -1,0 +1,109 @@
+%!TEX program = pdflatex
+%% https://github.com/fliptanedo/paper-template-2022
+
+\documentclass[12pt]{article}
+
+\input{FlipTemplate/FlipPreamble}         % leave unchanged
+\input{FlipTemplate/FlipMacros}           % 
+\input{FlipTemplate/FlipMacros_Comments}  % add your tag here
+\input{FlipTemplate/FlipMacros_Teaching} 
+\input{FlipTemplate/Flip_codeblocks}       
+\input{FlipAdditionalHeader} 	%% Modify this for each project
+
+%% some packages must loaded last
+\input{FlipTemplate/FlipPreambleEnd}			
+
+\graphicspath{{figures/}}       %% figure folder
+
+%% DRAFT COMPILE OPTIONS
+% \linenumbers                  %% print line #s (lineno)
+
+
+\begin{document}
+
+%% FIRST PAGE STYLING FOR TR#, pdfsync may fail on 1st page
+\newcommand{\FlipTR}{UCR-TR-2025-FLIP-00X} 
+\thispagestyle{firststyle} 	               
+%% IF NO TR NUMBER: use 
+% \thispagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  FRONTMATTER  %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+    {\huge \textbf{Paper Title} \par}
+    \vskip .5cm
+\end{center}
+\input{FlipAuthors}
+
+
+\begin{abstract}
+\noindent 
+This is a simple template for my papers. It's not very different from the plain article style, but it has most of the macros I use pre-written.
+\end{abstract}
+
+\small
+\setcounter{tocdepth}{2}
+\tableofcontents
+\normalsize
+%\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  THE CONTENT  %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+This is a template for my papers and lecture notes. The sample file includes \LaTeX{} snippets for common components of such documents. It also includes some (opinionated) suggestions for best practices when preparing a \LaTeX{} document.
+
+There are now three templates:
+\begin{enumerate}
+    \item \verb!sample_paper.tex!: (this document) for papers.
+    \item \verb!sample_shortnote.tex!: for quick notes; no author list, no bibliography, no hassle.
+    \item \verb!sample_lecturenotes.tex!: a hefty framework for writing extended lecture notes that can be printed and used as a textbook. Features: chapter/section, large margins for comments, BibLaTeX citations as footnotes, chapter appendices. 
+    \item \verb!sample_nicedocument.tex!: a professional document that uses local fonts (XeLaTeX), colors, and a nice footer. Useful for job applications.
+\end{enumerate}
+
+There is example text located in \texttt{./examples/}. These include common chunks of code and commentary on best practices.
+
+
+\paragraph{Example \emph{Lorem Ipsum} text} \lipsum[5]
+
+\input{examples/examples}
+\input{examples/examples_teaching}
+\input{examples/examples_listings}
+\input{examples/examples_bestpractices}
+\input{examples/examples_refs}
+
+
+
+\section*{Acknowledgments}
+
+\acro{PT}\ thanks 
+\emph{your name here}
+for useful comments and discussions. 
+%
+\acro{PT} thanks 
+    the Aspen Center for Physics (\acro{NSF} grant \acro{\#1066293})
+    % and the Kavli Institute for Theoretical Physics (\acro{NSF} grant \acro{PHY-2309135})
+    for 
+    its 
+    % their
+    hospitality during a period where part of this work was completed. 
+%
+% \acro{PT} is supported by the \acro{DOE} grant \acro{DE-SC}/0008541.
+\acro{PT} is supported by a \acro{NSF CAREER} award (\#2045333).
+
+%% Appendices
+% \appendix
+
+%% Bibliography; use inspireHEP bibtex when possible
+\bibliographystyle{FlipTemplate/utcaps} 
+%% utcaps: arXiv hyperlinks, preserves caps in title
+% \bibliography{bib title without .bib}
+\bibliography{FlipBib}
+
+\end{document}

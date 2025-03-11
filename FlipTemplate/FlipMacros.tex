@@ -1,0 +1,143 @@
+%!TEX root = ../sample_paper.tex
+%% FLIP’S MACROS 
+%% USES: FlipPreamble.tex
+
+%% FOR `NOT SHOUTING' CAPS (e.g. acronyms)
+%% ---------------------------------------
+\usepackage{anyfontsize} % removes scalefnt warnings
+\usepackage{scalefnt}       
+\newcommand\acro[1]{{\scalefont{.95}{#1}}} 
+
+
+%% COMMON PHYSICS MACROS
+%% ---------------------
+\renewcommand{\tilde}{\widetilde}         % tilde over characters
+\renewcommand{\text}{\textnormal}	        % text in equations 
+\renewcommand{\vec}[1]{\mathbf{#1}}       % vectors: boldface
+\newcommand{\bas}[1]{\hat{\mathbf{#1}}}   % basis vectors: hat
+\newcommand{\RR}{\mathbbm{R}}
+\newcommand{\CC}{\mathbbm{C}}
+\renewcommand{\Im}{\operatorname{Im}}
+\renewcommand{\Re}{\operatorname{Re}}
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+
+
+
+
+%% Particle Physics
+%% -----------------
+\newcommand\GeV{\acro{GeV}} 
+
+%% SO(N), etc. 
+%% ------------
+\newcommand{\SO}[1]{\ifmmode
+  \textnormal{\acro{SO(}}#1\textnormal{\acro{)}}
+  \else \acro{SO($#1$)} \fi}
+
+\newcommand{\SU}[1]{\ifmmode
+  \textnormal{\acro{SU(}}#1\textnormal{\acro{)}}
+  \else \acro{SU($#1$)} \fi}
+
+\newcommand{\Sp}[1]{\ifmmode
+  \textnormal{\acro{Sp(}}#1\textnormal{\acro{)}}
+  \else \acro{Sp($#1$)} \fi}
+
+
+
+%% LINEAR ALGEBRA
+%% ---------------
+\newcommand{\row}[1]{\tilde{\mathbf{#1}}} % row vectors have tilde
+
+% Have to compile from CTAN ("latex undertilde.ins")
+\usepackage{FlipTemplate/undertilde} 
+\renewcommand{\row}[1]{\utilde{\mathbf{#1}}}   % row vectors 
+\newcommand{\rbas}[1]{\row{#1}}                % row basis
+
+\newcommand{\ket}[1]{\left|#1\right\rangle}       % <#1|
+\newcommand{\bra}[1]{\left\langle#1\right|}       % |#1>
+
+\newcommand{\aij}[2]{^{#1}_{\phantom{#1}#2}}
+\newcommand{\mat}[3]{#1\aij{#2}{#3}}
+\newcommand{\inv}{^{-1}}
+
+\newcommand{\one}{\mathbbm{1}}
+\newcommand{\Tr}{\operatorname{\text{Tr}}}
+\newcommand*{\trans}{{\mkern-1.5mu\mathsf{T}}}     % transpose
+\newcommand{\slot}{\Vtextvisiblespace[1em]{}}   % underscore to fill in
+
+
+
+%% DIFFERENTIALS
+%% -------------
+%% Discouraged:
+\newcommand{\dbar}{d\mkern-6mu\mathchar'26\hspace{-.1em}}    
+
+%% Best practice: Roman differential with optional power
+\newcommand{\D}[2][]{\ensuremath{\operatorname{d}\mkern-3mu^{#1}\mkern-1mu{#2}}\,}
+\newcommand{\Dbar}[2][]{\operatorname{d}\mkern-10mu\mathchar'26\mkern-1mu^{#1}\mkern-1mu{#2}\,} 
+%% USAGE: \Dbar[4]{\ell} 
+
+
+
+%% TYPOGRAPHY: Best Practices
+%% --------------------------
+%% base of natural log is Roman
+\newcommand{\e}{\operatorname{e}}
+\newcommand{\E}{\operatorname{e}}  
+
+%% imaginary number is Roman too!?
+\newcommand{\I}{\operatorname{i}\mkern-2mu}  
+
+%% phantom + for spacing (aligning in math environment)
+\newcommand{\pp}{\phantom{+}}                     
+
+%% Subscript parallel is same size as subscript perp
+\usepackage{scalerel} % https://tex.stackexchange.com/a/523873/8094
+\newcommand*{\paral}{{\stretchrel*{\parallel}{\perp}}}
+
+%% For := with the dots and lines aligned, same size
+%%% h/t tex.stackexchange.com/a/4881/8094
+% \newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt
+%                      \hbox{\scriptsize.}\hbox{\scriptsize.}}}%
+%                      =}
+\newcommand*{\defeq}{%
+  \mathrel{%
+    \vcenter{%
+      \baselineskip0.5ex %
+      \lineskiplimit0pt %
+      \hbox{\scriptsize.}\hbox{\scriptsize.}} } =}
+
+
+%% Make my life easer
+%% ------------------
+\newcommand{\la}{\langle}
+\newcommand{\ra}{\rangle}
+\newcommand*{\smallslot}{\,\underline{\makebox[0.80em]{\ensuremath{}}}\,}
+%   e.g. writing dual vector as <_,v> 
+
+
+%% MISCELLANEOUS
+%% -------------
+\usepackage{pifont}
+  \newcommand{\cmark}{\ding{51}}%
+  \newcommand{\xmark}{\ding{55}}%
+
+%% extension of \textvisiblespace
+%% underscored space with little tick marks
+%% usage: \Vtextvisiblespace[1em]
+%% from: https://tex.stackexchange.com/a/50807/8094
+\newcommand\Vtextvisiblespace[1][.3em]{%
+  \mbox{\kern.06em\vrule height.3ex}%
+  \vbox{\hrule width#1}%
+  \hbox{\vrule height.3ex}}
+
+
+%% FIGURES INLINE WITH EQUATIONS (e.g. Feynman diagrams)
+%% -----------------------------
+% \newcommand{\eqfig}[2]{%
+%   \vcenter{\hbox{\includegraphics[#2]{{#1}}}}}
+% %% USAGE: \eqfig{example-image-a}{width=.1\textwidth}
+\newcommand{\eqfig}[1]{%
+  \vcenter{\hbox{#1}}}
+%% USAGE: \eqfig{\includegraphics[width=.3\textwidh]{example-image-a}}

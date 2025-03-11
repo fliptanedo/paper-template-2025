@@ -1,0 +1,75 @@
+%!TEX root = paper.tex
+%% Update the above with the appropriate root
+
+\section{Code example}
+
+These are examples of the \texttt{listings} package for typesetting code. See Overleaf\footnote{\url{https://www.overleaf.com/learn/latex/Code_listing}} and \acro{TeX.SE}~\footnote{\url{https://tex.stackexchange.com/a/350242}} for more information. By the way, printed out code is called `listings' because old computer languages has a \texttt{LIST} command to print out the numbered source code lines.\footnote{\url{https://softwareengineering.stackexchange.com/a/289729}}
+
+\subsection{Inline}
+
+If you just want to be able to insert \LaTeX{} into a document like this, you can use \verb!\verb!\footnote{\url{https://stackoverflow.com/a/66115768/16426341}}. The way it works is that you write \verb!\verb#TEXT#! where \verb!#! is any character that is not in \texttt{TEXT}. You can use listings package similarly with \verb!\lstinline! in place of \verb!\verb!.
+
+
+\subsection{Jupyter Notebook}
+
+Jupyter formatting from user \texttt{yogabonito} on \acro{TeX.SE}\footnote{\url{https://tex.stackexchange.com/a/350242/8094}}.
+
+\begin{pyin}%[pyin01]
+print("Hello world")
+\end{pyin}
+%  
+\begin{pyprint}
+Hello world
+\end{pyprint}
+% 
+You get a `multiply defined label' warning if you do not explicitly label each of your Python inputs. 
+%% EXAMPLE: 
+% \begin{pyin}
+% print("Hello world, too")
+% \end{pyin}
+% \begin{pyin}
+% print("Hello world, three.")
+% \end{pyin}
+%% This gives two Python inputs with label `' (blank)
+%% and thus returns a compiler warning.
+% 
+% 
+Here we have a return value in the last line of the input cell.
+\begin{pyin}[labelOfTheSecondInput]
+def twicify(arg):
+    print("Received:", arg, "- Will double now...")
+    return 2 * arg
+twicify(1)
+\end{pyin}
+
+\begin{pyprint}
+Received: 1 - Will double now...
+\end{pyprint}
+
+\begin{pyout}
+2
+\end{pyout}
+% 
+% \subsection{Referencing input}
+You can also reference the labeled input \ref{labelOfTheSecondInput}, from above.
+% \begin{pyin}[anotherlabel]
+% "and the counter will automatically do the right thing :)"
+% \end{pyin}
+% \begin{pyout}
+% 'and the counter will automatically do the right thing :)'
+% \end{pyout}
+
+
+\subsection{\texorpdfstring{\LaTeX}{LaTeX}}
+
+From user \texttt{hair-splitter} on \acro{TeX.SE}\footnote{\url{https://tex.stackexchange.com/a/637305/8094}}:
+
+\begin{lstlisting}[style=latexstyle]
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\newcommand*{\mycommand}{Hello World!}
+\begin{document}
+  \mycommand
+\end{document}
+\end{lstlisting}
+

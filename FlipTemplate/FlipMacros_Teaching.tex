@@ -1,0 +1,85 @@
+%!TEX root = ../sample_paper.tex
+%% MACROS FOR `theorem' ENVIRONMENTS IN LEC. NOTES
+%% USES: FlipPreamble.tex FlipMacros_Comments.tex
+
+%% USAGE SUMMARY: EXAMPLES
+%% -----------------------
+%% \begin{exercise}
+%%   Solve the following differential equation..
+%%   \label{ex:solve:ode}
+%% \end{exercise} 
+
+\usepackage{appendix}   % for sub-appendices
+%% see https://tex.stackexchange.com/a/120723/8094
+%% ... and discussion therein
+
+% \theoremstyle{plain} % default
+% \theoremstyle{remark} % upright text, no extra space above or below
+
+%% THEOREM STYLE
+%% -------------
+%% FRom amsthm docs & tex.stackexchange.com/a/38264/8094
+%% NB: spacing is overwritten by tcolorbox environment
+\newtheoremstyle{flip}% <name>
+{0pt}% <Space above> overwritten by tcolorbox
+{0pt}% <Space below> overwritten by tcolorbox
+{\setlength{\parskip}{.5\baselineskip}}% <Body font>
+{}% <Indent amount>
+{\bfseries}% <Theorem head font>
+{.}% <Punctuation after theorem head>
+{.5em}% <Space after theorem headi> overwritten by tcolorbox
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{flip}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{bigidea}{Key Idea}[section]
+    \newcommand{\bigidearef}{Key~Idea}
+    \newcommand{\bigidearefs}{Key~Ideas}
+
+\AtBeginEnvironment{example}{\footnotesize}
+\AtBeginEnvironment{exercise}{\footnotesize}
+
+
+% TCOLORBOX settings
+% https://tex.stackexchange.com/a/633497/8094
+\tcolorboxenvironment{theorem}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{gray},
+    top=-5pt,
+    bottom=0pt
+    }
+
+\tcolorboxenvironment{exercise}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{red!50!black},
+    top=-5pt,
+    bottom=0pt
+    }
+
+\tcolorboxenvironment{example}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{green!50!black},
+    top=-5pt,
+    bottom=0pt
+    }
+
+\tcolorboxenvironment{bigidea}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{blue!50!black},
+    top=-5pt,
+    bottom=0pt
+    }

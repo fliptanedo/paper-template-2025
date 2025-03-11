@@ -1,0 +1,142 @@
+%!TEX root = ../sample_paper.tex
+%% Calls listings package for in-line code blocks
+
+
+%% LISTINGS PACKAGE
+%% https://www.overleaf.com/learn/latex/Code_listing
+%% https://tex.stackexchange.com/a/350242
+\usepackage{xcolor}
+% \usepackage[most]{tcolorbox} %% moved to preamble
+\usepackage{listings}
+
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{mygreen}{rgb}{0,0.4,0}
+\definecolor{light_gray}{rgb}{0.97,0.97,0.97}
+\definecolor{mykey}{rgb}{0.117,0.403,0.713}
+
+\tcbuselibrary{listings}
+\newlength\inwd
+\setlength\inwd{1.3cm}
+
+
+% LATEX 
+% https://tex.stackexchange.com/a/637305/8094
+\lstdefinestyle{latexstyle}
+{
+  language=[LaTeX]{TeX},
+  texcsstyle=*\color{blue},
+  basicstyle=\ttfamily,
+  moretexcs={mycommand}, % user command highlight
+  frame=single,
+}
+
+%% \begin{lstlisting}[style=latexstyle]
+
+
+
+
+%% PYTHON
+%% from: https://tex.stackexchange.com/a/350242/8094
+\newcounter{ipythcntr}
+\renewcommand{\theipythcntr}{\texttt{[\arabic{ipythcntr}]}}
+
+\newtcblisting{pyin}[1][]{%
+  sharp corners,
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0pt,
+  colback=light_gray,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{mykey},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {\refstepcounter{ipythcntr}\label{#1}In \theipythcntr:};
+  }
+  listing engine=listing,
+  listing options={
+    aboveskip=1pt,
+    belowskip=1pt,
+    basicstyle=\footnotesize\ttfamily,
+    language=Python,
+    keywordstyle=\color{mykey},
+    showstringspaces=false,
+    stringstyle=\color{mygreen}
+  },
+}
+\newtcblisting{pyprint}{
+  sharp corners,
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0pt,
+  colback=white,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{mykey},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {};
+  }
+  listing engine=listing,
+  listing options={
+      aboveskip=1pt,
+      belowskip=1pt,
+      basicstyle=\footnotesize\ttfamily,
+      language=Python,
+      keywordstyle=\color{mykey},
+      showstringspaces=false,
+      stringstyle=\color{mygreen}
+    },
+}
+\newtcblisting{pyout}[1][\theipythcntr]{
+  sharp corners,
+  enlarge left by=\inwd,
+  width=\linewidth-\inwd,
+  enhanced,
+  boxrule=0pt,
+  colback=white,
+  listing only,
+  top=0pt,
+  bottom=0pt,
+  overlay={
+    \node[
+      anchor=north east,
+      text width=\inwd,
+      font=\footnotesize\ttfamily\color{mykey},
+      inner ysep=2mm,
+      inner xsep=0pt,
+      outer sep=0pt
+      ] 
+      at (frame.north west)
+      {\setcounter{ipythcntr}{\value{ipythcntr}}Out#1:};
+  }
+  listing engine=listing,
+  listing options={
+      aboveskip=1pt,
+      belowskip=1pt,
+      basicstyle=\footnotesize\ttfamily,
+      language=Python,
+      keywordstyle=\color{mykey},
+      showstringspaces=false,
+      stringstyle=\color{mygreen}
+    },
+}
+

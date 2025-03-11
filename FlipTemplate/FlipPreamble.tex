@@ -1,0 +1,125 @@
+%!TEX root = ../sample_paper.tex
+%% FLIP’S PREAMBLE
+%% Use FlipAdditionalHeader for project-specific packages & macros
+%% Leave this general; should not need modification
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  COMMON PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}            % AMS Macros
+\usepackage{amssymb}            %
+\usepackage{amsfonts}           %
+\usepackage{amsthm}             % 
+
+\usepackage{graphicx}           % includegraphics
+\usepackage[utf8]{inputenc}     % inspire bibs
+\usepackage{./FlipTemplate/aas_macros}	% ADS bibs
+\usepackage{bm}                 % \boldsymbol
+\usepackage{microtype}          % improved typogarphy
+\usepackage{etoolbox}           % LaTeX primitives
+\usepackage[T1]{fontenc}        % CM-Super fonts
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  UNUSUAL PACKAGES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% MATH AND PHYSICS SYMBOLS
+%% ------------------------
+\usepackage{slashed}				% \slashed{k}
+\usepackage{mathrsfs}				% Weinberg-esque letters
+\usepackage{bbm}					  % \mathbbm{1} conflict: XeLaTeX 
+\usepackage{cancel}					% cross out
+\usepackage[normalem]{ulem} % for \sout
+\usepackage{youngtab}	    	% Young Tableaux
+\usepackage{mleftright}     % \mleft, \mright; bracket size/spacing
+\usepackage{nicefrac}       % frac in subscript
+
+%% CONTENT FORMAT AND DESIGN
+%% -------------------------
+\usepackage[dvipsnames]{xcolor}
+\usepackage[hang,flushmargin]{footmisc} % no footnote indent
+
+\usepackage{fancyhdr}		% preprint number
+\usepackage{lipsum}			% block of text 
+% \usepackage{tcolorbox}  % replace framed and mdframed
+\usepackage[most]{tcolorbox} % `most' needed for listings
+\usepackage{subcaption}	% subfigures
+\usepackage{cite}			  % group cites
+\usepackage{wrapfig}    
+
+%% TABLES IN LaTeX
+%% ---------------
+\usepackage{booktabs}		% professional tables
+\usepackage{nicefrac}		% fractions in tables,
+\usepackage{multirow}		% multirow elements in a table
+\usepackage{arydshln}		% dashed lines in arrays
+
+%% Additional mods in FlipAdditionalHeader.tex
+
+%% Other Packages and Notes
+%% ------------------------
+\usepackage[font=small]{caption} 	% caption font is small
+\usepackage{float}         			  % for strict placement e.g. [H]
+\usepackage{lineno}               % Line numbers (put \linenumbers in main text)
+\usepackage{ccicons}              % Creative Commons License Icons
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  DOCUMENT PROPERTIES  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[margin=2.5cm]{geometry} % margins; can be overwritten
+\usepackage{changepage}             % overwrite geometry (e.g. lecturenotes)
+\numberwithin{equation}{section}    % set equation numbering
+\usepackage{marginnote}             % for \marginnote{comment}
+% \usepackage{mparhack}               % fix for \marginnote
+% \usepackage{marginfix}              % fix for \marginnote
+% \usepackage{adjustbox}              % to rescale elements
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  TITLE DATA  %%%%
+%%%%%%%%%%%%%%%%%%%%%
+
+%% COMMANDS FOR TOP-MATTER
+%% -----------------------
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+
+
+%% PREPRINT NUMBER USING fancyhdr
+%% Don't forget to set \thispagestyle{firststyle}
+%% ----------------------------------------------
+\renewcommand{\headrulewidth}{0pt}  % no separator
+\setlength{\headheight}{15pt}     % min to avoid fancyhdr warning
+\fancypagestyle{firststyle}{
+  \rhead{\footnotesize%
+  \texttt{\FlipTR}%
+  }}
+
+%% TOC overwrites fancyhdr, here's a fix
+%% http://tex.stackexchange.com/questions/167828/
+\usepackage{etoc}
+\renewcommand{\etocaftertitlehook}{\pagestyle{plain}}
+\renewcommand{\etocaftertochook}{\thispagestyle{firststyle}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  (RE)NEW COMMANDS  %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% COMMANDS FOR LATEXDIFF
+%% ----------------------
+%% see http://bit.ly/1M74uwc
+\providecommand{\DIFadd}[1]{{\protect\color{blue}#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{{\protect\color{red}\protect\scriptsize{#1}}}
+
+%% REMARK: use latexdiff option --allow-spaces
+%% for \frac, ref: http://bit.ly/1iFlujR
+%% Errors with environments? https://tex.stackexchange.com/q/73224
+
+%% USAGE: latexdiff draft.tex revision.tex > diff.tex
+
+

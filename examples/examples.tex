@@ -1,0 +1,462 @@
+%!TEX root = ../sample_paper.tex
+%% Update the above with the appropriate root
+\section{Common environments}
+
+\subsection{Figures: floating and wrapped}
+
+\begin{figure}%[th]
+    \centering
+    \includegraphics[width=0.4\textwidth]{example-image-a}
+    \caption[The figure environment shows up often. Here's a trick for footnotes in a floating caption.]{The figure environment shows up often. Here's a trick for footnotes in a floating caption.\footnotemark
+    \label{fig:figure:example}}
+\end{figure} 
+\footnotetext{Use the command \texttt{footnotemark} inside the caption then the command \texttt{footnotetext} just outside the environment. This requires the caption to have an optional argument that contains the text that should show up in a list of figures.}
+
+
+\begin{figure}%[th]
+    \centering
+	\begin{subfigure}{0.3\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{First subfig}
+        \label{fig:subfig:1}
+    \end{subfigure}\;%
+    \begin{subfigure}{0.3\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{Second subfig}
+        \label{fig:subfig:2}
+    \end{subfigure}\;%
+    \begin{subfigure}{0.3\textwidth}
+    \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{Third subfig}
+        \label{fig:subfig:3}
+    \end{subfigure}%
+    \caption{Here's how to use subfigures}
+    \label{fig:subfigure:example}
+\end{figure}
+
+Use 
+% \textbackslash\texttt{centering}
+\verb!\centering!
+rather than the \texttt{center} environment in figure environments to avoid adding extra vertical space.\footnote{\url{https://tex.stackexchange.com/a/23653/8094}\label{foot:centering}}
+
+\begin{wrapfigure}{l}{0.3\textwidth}
+	\includegraphics[width=0.9\linewidth]{example-image-a}
+	\caption{via \texttt{wrapfigure}.}
+	\label{fig:wrapfig}
+\end{wrapfigure}
+\lipsum[1]
+
+\subsection{Figures in Equation Environments}
+\label{sec:figs}
+A trick with: 
+% \verb!\eqfig{example-image-a}{width=.1\textwidth}!. 
+% 
+% \begin{quote}
+% \verb!\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}!
+% \end{quote}
+% 
+This is a command that we define in \texttt{FlipMacros.tex}. \flip{It may be better to define this so that users input their own includegraphics.}
+
+\begin{align}
+	% \vcenter{
+	% 	\hbox{\includegraphics[width=.1\textwidth]{{example-image-a}}}
+	% 	}
+	\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}
+	&=
+	i g \gamma^\mu \ . 
+	\label{eq:vector}
+	\\
+	\vcenter{
+		\hbox{\includegraphics[width=.1\textwidth]{{example-image-a}}}
+		}
+	&=
+	g \gamma^\mu\gamma^5 \ . 
+	\label{eq:axial}
+	\\
+	\vcenter{
+		\hbox{\includegraphics[width=.1\textwidth]{{example-image-a}}}
+		}
+	&=
+	ig  \ . 
+	\label{eq:scalar}
+	\\
+	% \vcenter{
+	% 	\hbox{\includegraphics[width=.1\textwidth]{{example-image-a}}}
+	% 	}
+	%% Shortcut: use \eqfig command
+	% \eqfig{example-image-a}{width=.1\textwidth}
+	\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}
+	&=
+	g \gamma^5 \ . 
+	\label{eq:pseudo}
+\end{align}
+
+
+\subsection{Best practices for tables}
+\label{sec:tables}
+
+% \begin{table}
+	% \renewcommand{\arraystretch}{1.3} % spacing between rows
+	% \centering
+	\begin{tabular}{ @{} llll @{} } \toprule % @{} removes space
+		Element 
+		& Core MF 
+		& Mantle MF 
+		& $C_\text{cap}^N (\text{s}^{-1})$ 
+		\\ \midrule
+		Iron 
+		& 0.855 
+		& 0.0626 
+		& $9.43\times 10^{7}$ 
+		\\
+		Nickel 
+		& 0.052 
+		& 0.00196 
+		& $7.10\times 10^{6}$ 
+		\\
+		Silicon 
+		& 0.06 
+		& 0.210 
+		& $2.24\times 10^{6}$ 
+		\\
+		Magnesium 
+		& 0 
+		& 0.228 
+		& $1.05\times 10^{6}$ 
+		\\ \bottomrule
+	\end{tabular}
+	% \caption{
+		% Mass fractions of the Earth's core and mantle.
+		% \label{table:elements}
+% 	}
+% \end{table}
+
+
+
+
+\section{Labels and cleveref}
+\label{sec:labels:and:cleveref}
+
+\subsection{\texorpdfstring{\texttt{cleveref}}{cleveref}}
+\label{sec:cleveref}
+
+\texttt{cleveref} is a handy package when referring to ranges of equations. 
+
+\begin{itemize}
+	\item Using \texttt{amsmath.sty}'s \texttt{eqref}: \eqref{eq:pseudo}
+	\item Using \texttt{cleverefs}'s \texttt{cref}: \cref{eq:pseudo}
+\end{itemize}
+
+For a range of equations:
+\begin{itemize}
+	\item Using \texttt{amsmath.sty}'s \texttt{eqref}: \eqref{eq:vector} -- \eqref{eq:pseudo}
+	\item Using \texttt{cleverefs}'s \texttt{crefrange}: \crefrange{eq:vector}{eq:pseudo}
+\end{itemize}
+
+For several equations with the range done automatically:
+\begin{itemize}
+	\item Using \texttt{amsmath.sty}'s \texttt{eqref}: \eqref{eq:vector}, \eqref{eq:axial}, \eqref{eq:scalar}, \eqref{eq:pseudo}
+	\item Using \texttt{cleverefs}'s \texttt{cref}: \cref{eq:vector,eq:pseudo,eq:axial,eq:scalar}
+\end{itemize}
+
+\texttt{cleveref} automatically identifies the type of object it is referring to. Thus you can use \verb!\cref! to refer to any label, for example \cref{foot:centering}.\footnote{Note that this example does not work: the automatic text does not say `footnote,' it says `section.'} You can use \verb!\Cref! to have a capitalized the cross reference name. For example: the sections above are \Cref{sec:macros,sec:cleveref,sec:figs,sec:tables}.
+
+
+\subsection{Sub-equations}
+
+One can also wrap a \texttt{align} environment with a \texttt{subequations} environment. The \texttt{subequations} environment can be given a label. For example,
+\begin{subequations}\label{eq:subequations}
+\begin{align}
+	a &= \pi 
+	\label{eq:subequation:1}
+	\\
+	b &= \e^{\I \pi} 
+	\ .
+	\label{eq:subequation:2}
+\end{align}
+\end{subequations}
+where we can now refer to the pair of equations \eqref{eq:subequations} or simply one of the equations, \eqref{eq:subequation:2}. This also works in \texttt{cleveref}: \cref{eq:subequations} and \cref{eq:subequation:2}.
+
+
+\subsection{Referring to Equations}
+
+One style suggestion is to use parentheses to refer to an equation with no additional modifiers \emph{except} at the beginning of a sentence.\footnote{\url{https://academia.stackexchange.com/a/21793}} For example: ``The second term in (3)...'' and ``Equation~(3) has two terms...''
+
+
+
+\section{Macros}
+\label{sec:macros}
+
+
+\subsection{Modest capitalization}
+
+Small caps are useful when your text contains acronyms and you do not want them to visually imply emphasis. In other words, we can use them as `not shouting' capitalization. We define a macro \texttt{acro} for this purpose. The default is for \texttt{acro} to be a wrapper for 
+\verb!\scalefont{.95}!. Here is an example:
+\begin{itemize}
+	\item \acro{AdS} in \acro{5D} at the \acro{LHC}.\footnote{\acro{AdS} in \acro{5D} at the \acro{LHC}} (using \texttt{acro})
+	\item AdS in 5D at the LHC.\footnote{AdS in 5D at the LHC.} (no \texttt{acro})
+	\item {\small{AdS}} in {\small{5D}} at the {\small{LHC}}.\footnote{{\small{AdS}} in {\small{5D}} at the {\small{LHC}}. (Note \texttt{small} is larger than \texttt{footnotesize}.)} (using \texttt{small}, footnote is messed up)
+\end{itemize}
+The default Computer Modern font leads to harmless warnings when using the \verb!\scalefnt! package. You can remove these by calling the \verb!anyfontsize! package. To change the font scaling, modify the following line in \verb!FlipMacros.tex!:
+\begin{quote}
+\verb!\newcommand\acro[1]{{\scalefont{.95}{#1}}}!
+\end{quote}
+Reasonable choices are between .9 and .95. It is a standard practice to use small caps for acronyms and initialisms~\cite{bringhurst2012elements}. The \emph{New York Times} uses small caps for acronyms longer than three letters, but I find that in physics we have so many three-letter acronyms that a more aggressive use of small caps for all acronyms and initialisms helps with readability.
+
+
+\subsection{Macros for Collaboration}
+
+There are many ways to add notes when collaborating on a document. I like in-line notes with an author name and a color.  \flip{This is an example of a comment.} It is also useful to have a macro for highlighting new text and for proposing the removal of old text.\footnote{Git does this automatically at the level of source code. \texttt{LaTeXDiff} ostensibly does this automatically, but is prone to compile errors and is notoriously difficult to troubleshoot.}
+
+\new{
+I fixed the equation:
+\begin{align}
+	a=b^2 
+	\label{eq:samename}
+\end{align}
+It has label \texttt{eq:samename}. 
+}
+
+\remove{
+	% It is good practice to indent the `to-be deleted' text
+	Here is an equation:
+	\begin{align}
+	a=b 
+	\label{eq:samename}
+	\end{align}
+	It has label \texttt{eq:samename}.
+}
+
+This is essentially a manual version of the \texttt{latexdiff} command. This command can be notoriously fussy around math environments. I personally advocate for using \texttt{git}-related tools to quickly identifying where a version was edited and then using tags to identify edits that need to be highlighted for further discussion. One nice thing about the \texttt{remove} tag above is that it also strips any \texttt{label}s so that there are no `multiply defined label' warnings and one can uniquely refer to a single equation, \eqref{eq:samename}.
+
+\begin{flipcomment}
+This is an extended comment that shows up as a text box. I might use this to make some ponderous point about why I think my version of a draft paragraph is more appropriate than yours.
+\end{flipcomment}
+
+\begin{boxedcomment}{Custom Title}
+You can also define boxes that take customized titles. 
+\end{boxedcomment}
+
+
+\subsection{\texorpdfstring{\texttt{xspace}}{xspace}}
+
+The \verb!\xspace! command is useful at the end of a macro. It stands for: ``insert a space if and only if there is supposed to be a space.'' It can be useful for spacing with user-defined macros. Consider the following examples:
+\begin{itemize}
+	\item Without \texttt{xspace}: \LaTeX typesetting...
+	\item With \texttt{xspace}: \LaTeX\xspace typesetting...
+	\item Without \texttt{xspace}: Typeset with \LaTeX.
+	\item With \texttt{xspace}: Typeset with \LaTeX\xspace.
+\end{itemize}
+However, one should consider \verb!\xspace! depreciated.  The results can be unreliable.\footnote{\url{https://tex.stackexchange.com/a/86620/8094}}  For example, one could define \verb!\newcommand{\test}{{test}\xspace}!, note the extra pair of braces in the definition. Even though there is an \verb!\xspace!, this command will fail to place a space between \verb!\test \test!. This type of problem shows up for me because I have a macro \verb!\acro{}! for making acronyms smaller. If I define a shortcut \verb!\newcommand{\DM}{\acro{DM}}! then there is no space between \verb!\DM \test!. The result is: \acro{DM}\xspace {test}. 
+
+The suggested practice is to end your commands with empty braces or a slash: \verb!\DM{}! or \verb!\DM\!. All spacing works out as intended. 
+\begin{itemize}
+	\item \verb!\DM{} Halo! produces \DM{} Halo
+	\item \verb!\LaTeX Fails.! produces \LaTeX Fails.
+	\item \verb!\LaTeX{} Works.! produces \LaTeX{} Works.
+\end{itemize}
+
+
+
+
+
+
+\section{Mathematics and Physics}
+
+\subsection{Environments}
+
+Use the \texttt{align} environment instead of \texttt{eqnarray}, see the TeXblog discussion\footnote{\url{https://texblog.net/latex-archive/maths/eqnarray-align-environment/}}. The double dollar sign notation for \texttt{displaymath} is depreciated.\footnote{\url{https://tex.stackexchange.com/questions/503/why-is-preferable-to}} The suggested alternative is \verb!\[! and \verb!\]!, though this is rather annoying. As a default I always use \texttt{align}.
+
+Single dollar sign \verb!$! notation is also depreciated relative to \verb!\(! and \verb!\)! for inline text. However, I am stubborn about keeping in-line text as simple as possible. The dollar sign is a single character and it is visually easier to identify as a delimiter for math mode. I thus continue using single dollar signs for inline mathematics. 
+
+
+\subsection{Text and Math: super- and subscripts}
+
+Use the \texttt{text} command to insert text into math environments. For subscripts use \texttt{textnormal}. 
+% 
+We use the \texttt{textnormal} command for super- or subscripts rather than the \texttt{text} command because this automatically uses the correct size. Otherwise, subscripts might be oddly large---for example, when writing $x_\text{min}$ in a footnote, the $\text{min}$ might not know that needs to be smaller than it would be in the main text. In \texttt{FlipMacros.tex} we redefine \verb!\text! to be \verb!\textnormal! so that you can simply write \verb!\text!.
+% Compare, for example: $G_\textnormal{D},\, G_\text{D}$.
+
+One place this shows up is if you have a subscript that is not a mathematical variable. For example, $x_a$ makes sense for the value of $x$ at point $a$, but $x_\text{b}$ should be used if the `b' is shorthand for boundary. Similarly, $E_\text{max}$ for the maximum energy, rather than $E_{max}$.
+
+
+\subsection{Units and spacing}
+
+Use a tie (tilde) to enforce a non-breaking short space between a number and its units: $0.5~\text{MeV}$. Units should not be italicized. If you want to be svelte you can use a thin space, \verb!\,!. (I prefer a thin space.) Some people like the \texttt{siunitx} package; I find it a little cumbersome for that it is, especially given that I usually write in natural units.
+
+Some care is required for spacing with math operators\footnote{\url{https://tex.stackexchange.com/a/35585/8094}}. Here's a guideline for how to use different bits of manual spacing\footnote{\url{https://tex.stackexchange.com/questions/25810/when-one-should-use-spacing-line-quad-or}}.
+
+
+\subsection{Upright characters}
+
+These come from the \acro{ISO 80000} standards for typesetting mathematics and physics.\footnote{See discussion in \url{https://tex.stackexchange.com/q/14821/8094}} It is not obvious to me that these are applicable to the typographical culture of physics, but the most important thing is to be consistent.
+\begin{itemize}
+	\item Units are always upright, \textmu m is a micrometer. You can use various unit packages to do this automatically. 
+	\item The base of the natural logarithm is upright $\e^{i\pi}$ versus $e^{i\pi}$. The best physics argument is to avoid confusion between the exponential $\e$ and the electric coupling $\alpha = e^2/4\pi$.\footnote{I thank Matt Reece for pointing this out to me.}
+	\item The differential is an operator so it should be upright. I have macros for this: $dx$ vs.~$\D{x}$ and $\dbar p$ vs.~$\Dbar{p}$. The \texttt{physics} package has macros for this. 
+	\item You could also do this for the imaginary number: $a+\I b = \e^{\I \theta}$. This one is a little trickier to get the spacing right. We use \verb!\newcommand{\I}{\operatorname{i}\mkern-2mu}!.
+	\item You can use \verb!\DeclareMathOperator! to define upright Roman letters that should be treated as a single operator like $\sin$. This also automatically fixes the spacing after the operator contextually depending on whether the next character is understood as an argument, $\sin x$, or a group $\sin(ax)$.
+\end{itemize}
+There is a historical discussion on \texttt{hsm.stackexchange}\footnote{\url{https://hsm.stackexchange.com/questions/6727/fracdydx-versus-frac-mathrm-dy-mathrm-dx}}.  For all of these, it helps to define macros. This makes it easy to change the style when you have a co-author who strongly disagrees.
+
+\subsection{Absolute Values}
+
+We define a macro \verb!\abs{}! to invoke \texttt{amsmath}'s \verb!\lvert! and \verb!\rvert! commands for automatically sizing the left- and right-bars of an absolute value. Examples:
+\begin{align}
+	\abs{x} &&
+	\abs{\frac{x}{y}} &&
+	\abs{\int \D{x} \, e^{i px}} &&
+	\int \D{x} \, \abs{e^{i px}}
+	\ .
+\end{align}
+If you want to be fancier, you can use \texttt{mathtools}\footnote{\url{https://tex.stackexchange.com/a/35585/8094}} to define custom delimiters. For example:
+\verb!\DeclarePairedDelimiter{\abs}{|}{|}! \, .
+
+
+\subsection{Vector notation}
+
+\begin{itemize}
+	\item Vector $\vec{v}$ and dual vector $\row{w}$. Also $\ket{v}$ and $\bra{w}$.
+
+	\item Transpose: The \acro{ISO}~80000 standard has suggestions. $A^T$ vs $A^\top$ vs $A^{\trans}$. I personally prefer $A^\text{T}$.
+	
+	\item I have an \verb!\aij{}{}! macro for tensors. For example: \verb!M\aij{i}{j}! gives $M\aij{i}{j}$.
+
+\end{itemize}
+
+
+\subsection{Miscellaneous}
+
+\begin{itemize}
+	\item Use $\mid$ instead of pipe for conditions: $p(x\mid y)$ versus $p(x|y)$.
+	% 
+	\item \textbf{Textual subscripts}: sometimes you have a subscript that is not an index, but shorthand for something textual. For example, the Green's function with Dirichlet boundary conditions is $G_\textnormal{D}$. The subscript is upright, not italicized, $G_D$. Use the \texttt{textnormal} command rather than the \texttt{text} command since this will automatically use the correct size. Comparison: $G_\textnormal{D},\, G_\text{D}$.
+	% 
+	\item Arrows with text under them: \texttt{xrightarrow} in the \texttt{amsmath} package. The square bracketed argument is under, the curly bracketed argument is over. Example: $\xrightarrow[\textnormal{low}]{\textnormal{hi}}$.
+	% 
+	\item We can use the $\defeq$ symbol, defined as a macro\footnote{\url{https://tex.stackexchange.com/a/4881/8094}} \verb!\defeq!, to denote assignment . The macro typesets the symbol so that the dots are the same size and aligned with the lines. In pedagogical writing, it may be useful to distinguish between equality $=$, assignment $\defeq$, and tautology $\equiv$. At least that is how I use these.\footnote{Arnold Arons brings up equal signs in \emph{Teaching Introductory Physics}, Chapter~3.23. I prefer $\defeq$ for definitions because it shows the asymmetry of the relation. The statement $a\defeq b$ means that $a$ is defined to be $b$. The equal sign $=$ is symmetric in appearance and in meaning: $a$ and $b$ are the same. I use  $a\equiv b$ sparingly to mean $a$ and $b$ are \emph{obviously} the same but in a way that is not necessarily derived mathematically. }
+	% 
+ \end{itemize}
+
+
+
+\section{Space}
+
+\subsection{Kerning: spacing between characters}
+Math operators have a natural spacing before and after depending on the context. In the following example, spaces indicate that the coefficient $a$ multiplies the logarithm of $b$:
+\begin{align}
+	a\log b && a\log(bc)
+\end{align}
+The space on either side of $\log$ indicate that $\log$ is a mathematical operator. The second example still has the space between $a$ and $\log$, but has no space between $\log$ and $(bc)$ because the parenthesis belongs to the mathematical function.\footnote{Example from \url{https://tex.stackexchange.com/a/140647}}
+% 
+You can use \verb!\DeclareMathOperator! for functions that are not built in.
+
+Using \verb!\left(! and \verb!\right)! will automatically size parentheses, but can mess up kerning:
+\begin{align}
+	f(x)
+	f\left(x\right)
+	f{\left(x\right)}
+	&
+	&
+	\cos(x)
+	\cos\left(x\right)
+	\cos{\left(x\right)}
+	{\cos}{\left(x\right)}
+	\ .
+\end{align}
+The crude way to fix this is to put braces around the parentheses: \verb!{\left(x\right)}!.\footnote{\url{https://tex.stackexchange.com/a/2610/8094}}. However, if the parenthesis is attached to a mathematical operators, the operator must also be surrounded by braces: \verb!{\cos}!. In the examples above, you can see the effect of the braces on the spacing on either side.
+
+
+
+\subsection{Manual Spacing}
+
+\LaTeX{} has commands for manually inserting spacing: 
+\begin{itemize}
+	\item \verb!\,! thin\,space
+	\item \verb!\:! medium\:space
+	\item \verb!\;! thick\;space
+	\item \verb$\!$ thin\!negative\!space.
+		  %% note the use of a different symbol in \verb 		
+\end{itemize}
+The negative space can be helpful for manually adjusting the kerning for large parentheses raised to a power:
+\begin{align}
+	\left(\frac{\pi}{\sum_{i=1}^n x^i}\right)^{d+1}
+	&&
+	\left(\frac{\pi}{\sum_{i=1}^n x^i}\right)^{\!d+1}
+	\ .
+\end{align}
+On the right we use \verb$\right)^{\!d+1}$.
+
+
+
+\subsection{Ties create non-breaking spaces}
+
+\LaTeX{} interprets periods as full stops (end of a sentence). It places extra space after the full stop. Use a \textbf{normal space} right after the period, \verb!.\ ! (``slash space'') to tell \LaTeX{} that a period is not a full stop and that it should insert insert a normal space not a double space.\footnote{The double space is sometimes considered old fashioned. You can use \texttt{frenchspacing} in your document to turn off the double space after a full stop.} Mr.\ Roboto versus Mr. Roboto. 
+
+
+% Use a \textbf{tie} (tilde) when a period is not a full stop: Mr.~Roboto versus Mr. Roboto. 
+A related construction is a \textbf{tie} (tilde). This gives \textbf{non-breaking space} which is a normal space that \LaTeX{} interprets as `part of the word'. This means that line breaks should not occur along the non-breaking space.
+% 
+You can also use ties this whenever you want to prevent a line break between words. \LaTeX{} interprets the tied words as a single word.
+% 
+Ties are also standard for citations: \verb!Tanedo et al.~\cite{citation}!. 
+
+
+\subsection{Underlined space}
+
+An example that comes up surprisingly often is the command \verb!\textvisiblespace! which produce an explicit space character:\textvisiblespace.
+
+There is a neat macro one can define, \verb!\Vtextvisiblespace[1em]! that lets you write longer visible spaces:\Vtextvisiblespace[1em] and \Vtextvisiblespace[2em].
+
+\section{Some Best Practices}
+
+\subsection{\texorpdfstring{\LaTeX{} in a title}{LaTeX in a title}}
+
+When using \LaTeX{} code in a section title, use the \texttt{texorpdfstring} command to define an \acro{UTF-8} string that the pdf can use for bookmarks. If you do not do this, there are annoying compilation warnings.
+
+
+\subsection{Ranges}
+
+Hyphens, en dashes, em dashes, and minus signs in math mode are all grammatically different.
+\begin{itemize}
+	\item En dashes replace hyphens in a compound adjective where one of the elements is a two-word compound: `post--Cold War era.'\footnote{From \url{https://www.merriam-webster.com/words-at-play/em-dash-en-dash-how-to-use}}
+	\item En dashes are used for combinations of two names in place of the word `and.' For example, Randall--Sundrum model.
+	\item For compound names of a single person, use a hyphen: Levi-Civita.
+	\item A minus sign should be typeset in math mode, $-1$.
+\end{itemize}
+The choice between a hyphen and en dash can be tricky. For example \acro{APS} seems to prefer ``anti--de Sitter'' with an en dash, whereas others prefer a hyphen.\footnote{See 1 Jan '23: \url{https://en.wikipedia.org/wiki/Talk:Anti-de_Sitter_space}.}
+
+
+\subsection{References}
+
+Use \BibTeX\xspace. There are any number of \BibTeX\xspace managers. One that I like is Yuji Tachikawa's \texttt{spires.app}\footnote{\url{https://member.ipmu.jp/yuji.tachikawa/spires/}}; it links directly to the inSpire \acro{HEP} database. For styling, I recommend Jacques Distler's \texttt{utcaps.bst} which is a nice format that automatically inserts a hyper link to the \texttt{arXiv} version of a paper. If yo are fancy you may use {\rm B\kern-.05em{\sc i\kern-.025em b}\LaTeX{}. 
+
+
+Standard citation managers with \BibTeX\xspace capability make a big deal about assigning unique \BibTeX\xspace citation keys to each reference. This can be tedious if you have to collaborate with someone else who has made up their own citation keys. Fortunately, in my field there is a single recognized database, inSpire\footnote{\url{https://inspirehep.net}; see also \acro{NASA/ADS} for astronomy.}, that assigns a unique \BibTeX entry for papers.  This means that it is good practice to select keys as follows:
+\begin{itemize}
+	\item If it exists, use the inSpire key. Tools like \texttt{spires.app} default to this key.
+	\item If inSpire does not have the reference, use \acro{NASA/ADS}.
+	\item If neither of those databases has the references, find a simple algorithm that all of your coauthors can agree upon. 
+\end{itemize}
+Items in the third category are usually books and websites. 
+
+
+
+\section{Neat examples}
+
+Suppose you would like to repeat and equation reference,
+\begin{align}
+	\e^{\I\pi} &= -1 
+	\ .
+	\label{eq:e:ipi}
+\end{align}
+Remember that equation above? Let's write it again,
+\begin{align}
+	\e^{\I\pi} &= -1 
+	\ .
+	\tag{\ref{eq:e:ipi}}
+\end{align}
+Observe that these have the same equation number. Instead of \texttt{label} we use \texttt{tag} with argument \texttt{ref}.

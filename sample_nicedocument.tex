@@ -1,0 +1,85 @@
+%!TEX program = xelatex 
+%% For fancy documents
+
+\documentclass[12pt]{article}
+
+\input{FlipTemplate/FlipPreamble}        
+\input{FlipTemplate/FlipMacros}           
+\input{FlipTemplate/Flip_xelatex}
+    \usepackage{xltxtra}   % for \XeLaTeX{}
+
+\input{FlipAdditionalHeader}    %% Modify this for each project
+
+%% some packages must loaded last
+\input{FlipTemplate/FlipPreambleEnd}            
+
+
+\graphicspath{{figures/}}       %% figure folder
+
+% For letter-style spacing (req: for footer)
+\geometry{                      
+  top=1in,
+  bottom=1.1in,
+  right=1in,
+  left=1in,
+  footskip=.75in
+}
+
+\begin{document}
+
+%% FIRST PAGE STYLING FOR TR#, pdfsync may fail on 1st page
+\newcommand{\FlipTR}{Document identification} 
+\thispagestyle{firststylenice} % Helvetica doc ID
+%% IF NO TR NUMBER: use 
+% \thispagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  FRONTMATTER  %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+    {\color{UCRnavy} 
+    \Helvetica \Large \textbf{Document Type} \par}
+    {%\color{UCRnavy} 
+    \UCRriftsec
+    \huge \textbf{Attention-Grabbing Title} \par}
+    \vskip 1.5cm
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  THE CONTENT  %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+{
+    \noindent \Helvetica \small
+    This is a space for a \textbf{short blurb}, perhaps an executive summary
+}
+\vskip 1cm
+
+\section{A different kind of document}
+
+\paragraph{What this is for}
+This document style is useful for personal statements. Unlike the other sample documents, this one requires \XeLaTeX{} to use fonts.
+
+\paragraph{Assets}
+This document is loosely styled on the \acro{UCR} brand identity. The choice of section font (Rift), paragraph header font (Fira Sans), document footer draw from the \acro{UCR} brand without pretending to be a \acro{UCR} document. The format is based on a separate template where I mocked up the \acro{UCR} letterhead in \LaTeX. The document should be straightforward to modify to use different fonts, colors, and footers. If you need to add a header, you can incorporate more of the styling from my letterhead. 
+
+\paragraph{Paragraph header} 
+Sectioning and paragraph headers help readers parse information quickly. This is especially helpful when they are processing \emph{many} documents like this and need to be able to navigate the information easily. This document aspires to live up to the standards in Bringhurst~\cite{bringhurst2012elements}.
+
+
+
+
+%% Bibliography
+%% Use inspireHEP bibtex entries when possible
+\bibliographystyle{FlipTemplate/utcaps} 	
+% utcaps: arXiv hyperlinks, preserves caps in title
+
+% \bibliography{bib title without .bib}
+\bibliography{FlipBib}
+
+\ThisLLCornerWallPaper{1}{footerbgshort} 
+% using wallpaper
+\end{document}

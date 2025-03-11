@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+\newcommand{\FlipTR}{}
+
+\input{FlipTemplate/FlipPreamble}
+\input{FlipTemplate/FlipMacros}
+\input{FlipTemplate/FlipMacros_Comments}
+% \input{FlipAdditionalHeader} %% Use this define additional macros
+
+
+%% In place of bibliography
+\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{\texttt{#1}}}
+\input{FlipTemplate/FlipPreambleEnd} 
+
+
+\begin{document}
+\thispagestyle{empty} % comment out using \FlipTR
+
+\begin{center}
+    {\huge \textbf{Short Note Title} \par}
+\end{center}
+
+\section{Introduction}
+
+This document is for short notes. Rather than a proper bibliography, we define a new command \verb!\arxiv{}! to produce, for example, \arxiv{1911.13293}. This is automatically hyperlinked to the abstract page of the arXiv paper.
+
+\begin{align}
+    \row{v} \defeq \vec{w}^\trans
+\end{align}
+
+
+
+
+\end{document}

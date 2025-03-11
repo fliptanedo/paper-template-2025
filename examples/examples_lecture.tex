@@ -1,0 +1,195 @@
+%!TEX root = lecturenotes.tex
+%% Update the above with the appropriate root
+
+\chapter{Margins and Figures} %% if using report class
+
+The main difference between my lecture notes and my paper template is the large margin to make use of side notes. The margin is a natural place to encourage students to jot notes and to host useful marginalia.%
+\begin{marginfigure}%[th]
+    \includegraphics[width=.8\textwidth]{example-image-golden}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Example of a margin figure.}
+    \label{fig:figure:example:golden}
+\end{marginfigure}
+You can even place figures in the margin, see Fig.~\ref{fig:figure:example:golden}.\sidenote{Look! No float collision!}
+
+\section{Vision}
+
+This document is inspired by Edward Tufte and the implementation of his ideals in the \texttt{tufte-latex} package. The notes have a large margin for side notes and floats (e.g.\ figures).  Visually this means that the column of main text is narrower, which permits a slightly smaller font.
+
+
+\section{Using the Margin}
+
+We implement marginalia with the \texttt{sidenotes} package\index{side notes}. We highlight the main usage here. A standard sidenote uses \verb!\sidenote{...}! and looks like this\sidenote{Test of a sidenote. Let's add some extra text here to demonstrate the following point about non-overlapping notes}. Unlike \verb!marginnote!s, \verb!sidenotes! do not overlap with each other.\sidenote{An example of a sidenote that does not overlap with the previous one.} What more, the sidenotes coexist fine with footnotes.\footnote{Here is a foot note.}.
+
+\paragraph{Figures} You can place entire figure floats in the main text region or in the margin. Fig.~\ref{fig:figure:example:golden} is a good example.
+
+All we did was take \texttt{figure}$\rightarrow$\texttt{marginfigure}. You can do the same thing with \texttt{margintable}. On the other hand, sometimes you want a figure that spans the entire text width. Or, perhaps, you want several figures next to each other for comparison. To do this, we simply use the \texttt{figure*} environment. We demonstrate this in Fig.~\ref{fig:subfigure:example:lec}.
+\begin{figure*}%[th]
+    \centering
+    \begin{subfigure}{0.3\linewidth}
+    \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{First subfig}
+        \label{fig:subfig:1:lec}
+    \end{subfigure}\;%
+    \begin{subfigure}{0.3\linewidth}
+    \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{Second subfig}
+        \label{fig:subfig:2:lec}
+    \end{subfigure}\;%
+    \begin{subfigure}{0.3\linewidth}
+    \centering
+        \includegraphics[width=\linewidth]{example-image-a}
+        \caption{Third subfig}
+        \label{fig:subfig:3:lec}
+    \end{subfigure}%
+    % \captionsetup{font={footnotesize,sf}}
+    \caption{Here's how to spread a figure across the entire page, not just the main text width.}
+    \label{fig:subfigure:example:lec}
+\end{figure*}
+
+
+We can place large figures in the main text and then place the figure caption in the margin notes. Compare the subfigure in Fig.~\ref{fig:subfig:3:lec} of Fig.~\ref{fig:subfigure:example:lec} to Fig.~\ref{fig:figure:example:golden:sidecap}.
+\begin{figure}%[th]
+    % \centering
+    \sidecaption[][-2\baselineskip]{%
+        Example of a margin figure. Note that the \texttt{label} command must be inside the \texttt{sidecaption}. (See source.)
+        %
+        %% \label command inside the \sidecaption command
+        \label{fig:figure:example:golden:sidecap}
+    }
+    \includegraphics[width=\textwidth]{example-image-golden}
+\end{figure}
+
+
+\section{Other types of marginalia}
+
+Sometimes you can use \texttt{marginnote} to place a note without a marking.%\marginnote{See?} 
+\sidenote{here's another}
+Note that \texttt{marginnote} does not, by default, use the same font as \texttt{sidenote}, so we had to set this in the preamble (\texttt{FlipLectureMacros.tex}). In \texttt{FlipLectureMacros} I define \verb!\sidenotenomark! which lets me write sidenotes with no mark.\sidenotenomark{Like this one!}
+
+
+Maybe we want to put another type of float in the margin?\sidenote{Unfortunately, no float collision for margintables!}
+What about a table, like Table~\ref{tab:margin:Table}?
+% 
+\begin{margintable}[-1em]
+\small
+    \begin{tabular}{ @{} llll @{} } \toprule % @{} removes space
+        Element 
+        & Core
+        & Mantle
+        % & $C_\text{cap}^N (\text{s}^{-1})$ 
+        \\ \hline
+        Iron 
+        & 0.855 
+        & 0.0626 
+        % & $9.43\times 10^{7}$ 
+        \\
+        Nickel 
+        & 0.052 
+        & 0.00196 
+        % & $7.10\times 10^{6}$ 
+        \\
+        Silicon 
+        & 0.06 
+        & 0.210 
+        % & $2.24\times 10^{6}$ 
+        \\
+        Magnesium 
+        & 0 
+        & 0.228 
+        % & $1.05\times 10^{6}$ 
+        \\ \bottomrule
+    \end{tabular}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Example of a margin table.}
+    \label{tab:margin:Table}
+\end{margintable}
+One curious thing is that \texttt{margintable} does not float independently like a \texttt{sidenote}. Just be a bit careful using this since sometimes it requires manual spacing.
+Another curiosity is that in my setup \texttt{sidefigure} and \texttt{sidetable} from the \texttt{sidenotes} package do not seem to work. I think may be because I played around a bit to try to make the \texttt{sidenote} font uniform.
+
+\section{Breaking the Margin}
+
+
+We define an environment \texttt{wide}\index{wide} that allows text, like equations, to spill into the margins. For example:
+\begin{wide}
+\begin{align}
+f &= \sin\mleft(\frac{x^2}{2}\mright)
+\times \arctan t 
+\times \log \mleft(\cos \theta\mright)
+\times \int_a^b \D{}x \exp\mleft(a^1 + b^2 + x^2\mright)
+\times e^{-i\pi} 
+\times \Gamma(n) 
+\times _{n\!}\text{C}_m
+\end{align}
+\end{wide}
+\begin{wide}
+The definition of the margin spillover in \texttt{wide} needs to be matched to the size of the margin defined with the \texttt{geometry} package. Here's what normal text looks like.  The user must be responsible not to place any sidenotes while inside the \texttt{wide} environment.
+\end{wide}
+
+
+\section{Subsequent side notes}
+
+One reason we use \texttt{sidenotes} instead of \texttt{marginnotes} is that \texttt{sidenotes} treats the notes as floating environments that do not overlap with one another.\sidenote{Here is a side note.} These side notes may cause warnings, but should not overlap.\sidenote{Here is another side note that should not overlap.}
+
+Here's a sentence with some citations.\sidenote{Let's make this work. $\e^{i\pi} = -1$.}
+
+
+
+\section{Some common environments}
+
+\begin{theorem}[Euler's Identity]
+\label{thm:euler:identity}
+    Euler's identity\index{Euler's identity} is
+    \begin{align}
+        \e^{i\pi} = -1 \ .
+    \end{align}
+    Note that we use the macro \verb!\e! for an upright $\e$ rather than an italicized $e$.
+\end{theorem}
+
+\begin{exercise}
+\label{ex:derive:euler:identity}
+    Derive Euler's identity, Thm.~\ref{thm:euler:identity}.
+
+    Test of parskip.
+\end{exercise}
+
+\noindent Good students\index{good students} do the exercises, like Exercise~\ref{ex:derive:euler:identity}. Good instructors provide lots of examples, like Example~\ref{eg:easy:example}.
+
+\begin{example}
+\label{eg:easy:example}
+    Consider the geometric series
+    \begin{align}
+        S = \sum_{n=0} a^n \ .
+    \end{align}
+    We can find a closed form expression for $S$ using
+    \begin{align}
+        S - aS &= 1\\
+        S &= \frac{1}{1-a} \ .
+    \end{align}
+\end{example}
+
+\section{Some specialized environments}
+
+\begin{bigidea}[Principle of Easy Examples]
+\label{idea:easy:examples}
+The examples in a book are typically much simpler than the exercises.\sidenotemark
+\end{bigidea}\sidenotetext[][-2.4em]{Don't you hate it when this happens?\label{sidenote:in:environment}}
+
+\noindent  Notice that \bigidearef{}~\ref{idea:easy:examples} has a sidenote. Ordinarily \verb!\sidnote{}! does not work in environments. To hack this manually\sidenote{And only do this sparingly!} one may use \verb!\sidenotemark! inside the environment to place the marking and then 
+\begin{quotation}
+\verb!\sidenotetext[][-2cm]{sidenote}!
+\end{quotation}
+to implement the sidenote with a manual vertical adjustment.
+
+
+
+\section{References}
+
+We use \texttt{biblatex} (not \BibTeX{}) to place references as footnotes.\sidenote{Unlike \BibTeX{}, biblatex does not have a fancy logo. It is simple to make one up: \BibLaTeX{}.} This is because in pedagogical material, you \emph{want} readers to engage with references. Thus it makes sense to put the reference on the same page that you refer to them rather than sequestered at the end of a chapter or---worse---the end of the document. Here is a test citation using \texttt{autocite}: some paper.\autocite{Feng:2016ijc} What is nice is that \BibLaTeX{} is clever with repeated citations.\autocite{Feng:2016ijc} Notice how it does not dump all of the bibliographic data, just what you need to remember the paper and a hyperlink to the original footnote with the full reference. It even takes \texttt{arXiv} identifies with no additional modification.
+
+
+\begin{flipcomment}
+Is \BibLaTeX{} suddenly not working, even thought it was working earlier? Have you been coding in a \texttt{conda} environment? \LaTeX{} may have gotten confused.
+\end{flipcomment}

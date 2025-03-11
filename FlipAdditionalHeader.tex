@@ -1,0 +1,121 @@
+%!TEX root = sample_paper.tex
+%% PROJECT-SPECIFIC MACROS
+
+%% ACRONYMS and MACROS
+%% Place them here. Really useful ones can 
+%% migrate to ./FlipTemplate/FlipMacros.tex
+%% -------------------
+\newcommand{\DM}{\acro{DM}}		% nb: I do not like using this
+
+
+%% COLLABORATOR COMMENTS
+%% Example: replace YourName with your name
+\newcommand{\YourName}[1]{{	
+	\color{blue!50!black}\footnotesize
+	[\textbf{\textsf{YourName}}: \textsf{#1}]}}
+
+
+%% CAPTION STYLING (e.g. smaller caption)
+\captionsetup{font={scriptsize,sf}} %% caption package
+
+
+%%%%%%%%%%%%
+%% LAYOUT %%
+%%%%%%%%%%%%
+
+% \usepackage[margin=2.5cm]{geometry}
+
+%% References in two columns, smaller (for papers)
+%% http://tex.stackexchange.com/questions/20758/
+%% \usepackage{etoolbox} %% called above
+%% -----------------------------------------------
+% \usepackage{multicol}
+% \usepackage{relsize}
+% \patchcmd{\thebibliography}
+%   {\list}
+%   {\begin{multicols}{2}\smaller\list}
+%   {}
+%   {}
+% \appto{\endthebibliography}{\end{multicols}}
+%% -----------------------------------------------
+
+% Change list spacing (instead of package paralist)
+% from: http://en.wikibooks.org/wiki/LaTeX/List_Structures#Line_spacing
+% alternative: enumitem package
+\let\oldenumerate\enumerate
+\renewcommand{\enumerate}{
+  \oldenumerate
+  \setlength{\itemsep}{4pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+\let\olditemize\itemize
+\renewcommand{\itemize}{
+  \olditemize
+  \setlength{\itemsep}{4pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+
+
+
+
+%% TABLES / TABULAR ENVIRONMENT
+%% -----------------------------
+%% Vertical spacing between rows
+% \renewcommand{\arraystretch}{1.5} 
+
+%% More spacing between table columns
+% \setlength{\tabcolsep}{12pt}
+
+
+%% TYPOGRAPHY
+%% ----------
+%% French spacing: only one space after periods
+% \frenchspacing
+
+%% NEW ENVIRONMENTS
+%% ----------------
+%% EXAMPLE: framed environments
+% \newmdtheoremenv[
+%     skipabove=2em,
+%     skipbelow=2em,
+%     linewidth=5pt,
+%     linecolor=red!50!black,
+%     topline=false,
+%     rightline=false,
+%     bottomline=false
+%     ]{framed}{Frame}[section]
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% JUST FOR THE SAMPLE TEMPLATES %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% FOR THE sample_paper.tex TEMPLATE
+%% Can be deleted for real projects
+%% ---------------------------------
+\usepackage{xspace}    % only to explain why NOT to sue this
+
+%% Easy arXiv hyperlinks (in sample_shortnote.tex)
+\newcommand{\arXiv}[1]{%
+	\texttt{%
+	\href{https://arxiv.org/abs/#1}{arXiv:{#1}}
+	}
+	}
+
+%% RENEW COMMANDS, example
+% \newcommand{\LaTeXx}{\LaTeX{}}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}{}}
+
+\def\BibLaTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    \LaTeX}{}}
+
+
+
+
+

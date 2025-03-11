@@ -1,0 +1,32 @@
+%!TEX root = paper.tex
+%% Update the above with the appropriate root
+
+\section{Teaching Examples}
+
+For lecture notes it is useful to have some framed environments to highlight examples and exercises. In the past I have used \texttt{framed} and \texttt{mdframed}. I think \texttt{tcolorbox} may be the best option now.
+
+% \begin{tcolorbox}
+% 	⟨environment content⟩
+% \end{tcolorbox}
+
+\begin{theorem}[Flip's Theorem]
+This is an example theorem.
+\end{theorem}
+
+\begin{example}[Flip's Example]
+This is an example of an example
+\end{example}
+
+
+\begin{exercise}[Solving a differential equation]
+  Solve the following differential equation.
+  \label{ex:solve:ode}
+\end{exercise} 
+\noindent Can you solve Exercise~\ref{ex:solve:ode}?
+
+
+\begin{bigidea}[environments]
+  With \texttt{tcolorbox}, one may `dress' existing environments in boxes. The call to the environments is unchanged.
+  \label{idea:environments}
+\end{bigidea} 
+\noindent Refer to \bigidearef{}~\ref{idea:environments}.

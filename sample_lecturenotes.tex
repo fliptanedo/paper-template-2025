@@ -1,0 +1,179 @@
+%% LaTeX Paper Template, Flip Tanedo (flip.tanedo@ucr.edu)
+%% GitHub: https://github.com/fliptanedo/paper-template-2022
+
+\documentclass[12pt, oneside]{report}    %% Has chapters
+
+%% Load first:
+\input{FlipTemplate/FlipLectureMacros}       
+
+\input{FlipTemplate/FlipPreamble}
+\input{FlipTemplate/FlipMacros}
+\input{FlipTemplate/FlipMacros_Comments}
+\input{FlipTemplate/FlipMacros_Teaching}
+\input{FlipTemplate/Flip_codeblocks}
+\input{FlipAdditionalHeader}    %% Modify this for each project
+
+%% Load last:
+\input{FlipTemplate/FlipPreambleEnd}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LECTURE NOTES SETTINGS %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \linenumbers                  %% print line numbers (lineno package)
+\graphicspath{{figures/}}       %% figure folder
+\addbibresource{FlipBib.bib}    %% Define BibLaTeX source(s)
+
+%% LEAVE THESE HERE 
+
+% \usepackage{geometry}
+\geometry{                      %% large margin for side notes
+    paper=letterpaper, 
+    hmargin={1cm,7.25cm},       %% 6.25cm space on right
+    vmargin={2cm,2cm}, 
+    marginparsep=.5cm, 
+    marginparwidth=5.75cm
+}
+
+%% Def. full width; uses changepage package; 6.25cm to match hmargin difference;
+\newenvironment{wide}{\begin{adjustwidth}{0cm}{-6.25cm}}{\end{adjustwidth}}
+
+
+% Reset the sidenote number each section 
+\let\oldsection\section
+\def\section{%
+  \setcounter{sidenote}{1}%
+  \oldsection
+}
+
+
+\begin{document}
+
+\newgeometry{margin=2cm}                   % plain geometry for frontmatter
+\newcommand{\FlipTR}{UCR-TR-2025-FLIP-00X} % TR#, pdfsync may fail on 1st page
+\thispagestyle{firststyle} 	               % TR#; otherwise use \thispagestyle{empty}
+\pagenumbering{gobble}                     % no page number on first page 
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  FRONTMATTER    %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{center}
+    {\large \textsf{UC Riverside Physics XXX, Fall 20YY} \par}
+    {\huge \textbf{Course Title} \par}\vspace{.5em}
+    {\large {Descriptive subtitle} \par}
+    \vskip .5cm
+\end{center}
+
+\input{FlipAuthors}
+
+\vspace{2em}\noindent
+This is a good place to put the course description and any commentary about the nature of these notes. 
+
+
+\vspace{2em}
+\noindent
+\textsf{Last Compiled: \today}
+
+\noindent
+\textsf{CC BY-NC-SA 4.0}~\ccbyncsa 
+
+\noindent % Course notes URL
+% \url{https://github.com/fliptanedo/P231-2023-Math-Methods}
+
+%% Front page logos
+\vspace*{\fill}
+\begin{center}
+\includegraphics[height=.1\textwidth]{figures/FlipAmbigram.png}
+\hspace{5em}
+\includegraphics[height=.1\textwidth]{figures/UCRPnA_banner.png}
+\end{center}
+
+\newpage
+
+\small
+\setcounter{tocdepth}{2}
+\tableofcontents
+\normalsize
+\clearpage
+\restoregeometry        %% Return to lecture note geometry 
+\pagenumbering{arabic}  %% Turn on regular page numbers
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  THE CONTENT  %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{The Lecture Notes Template}
+
+\section{Usage}
+
+Unlike the paper template, the lecture note template is organized into chapters and has large margins for side notes. To use chapters, we call the \texttt{report} class rather than the \texttt{article} class. This template also uses \texttt{biblatex} rather than \texttt{bibtex} to compile.
+
+
+\section{Things I'm working on ...}
+
+\subsection{Sidecite}
+\verb!\sidecite! does not work. Perhaps this may help?
+\url{https://github.com/fmarotta/kaobook/issues/15}
+
+
+\subsection{Includeonly}
+
+I primarily use \verb!\input{}! to chunk up my source because it does not introduce a \verb!\clearpage! the way that \verb!\include{}! does. However, when using \verb!\include{}! one may use the \verb!\includeonly{}! command to compile just one part of a document while \emph{maintaining all references} to other parts of the document.\footnote{\url{https://tex.stackexchange.com/a/250/8094}} 
+
+
+
+\input{examples/examples_lecture}
+
+% \chapter{Paper examples}
+
+% Here are the standard examples I use for my \texttt{paper} template. I include them here to check that nothing has broken. These do not make use of the margin at all. You can see what happens when some text spills into the margin unintentionally.
+
+% \input{examples/examples}
+% \input{examples/examples_teaching}
+% \input{examples/examples_listings}
+% \input{examples/examples_bestpractices}
+% \input{examples/examples_refs}
+
+%% CHAPTER SUBAPPENDIX %% require report class
+\begin{subappendices}
+\section{Subappendix}\label{sec:subappendix:eg}
+This chapter has its own special appendix.
+\end{subappendices}
+
+
+
+\section*{Acknowledgments}
+
+\acro{PT}\ thanks 
+\emph{your name here}
+for useful comments and discussions. 
+%
+\acro{PT} thanks 
+    the Aspen Center for Physics (\acro{NSF} grant \acro{\#1066293})
+    % and the Kavli Institute for Theoretical Physics (\acro{NSF} grant \acro{PHY-1748958})`'
+    for 
+    its 
+    % their
+    hospitality during a period where part of this work was completed. 
+%
+% \acro{PT} is supported by the \acro{DOE} grant \acro{DE-SC}/0008541.
+\acro{PT} is supported by a \acro{NSF CAREER} award (\#2045333).
+
+%% Appendices
+\appendix
+\chapter{Proper appendix}
+Unlike Chapter~\ref{sec:subappendix:eg}, this is an appendix at the end of the document rather than a sub-appendix within a chapter. Check out the index that follows this chapter.
+
+\section{Things to work on}
+
+It may be nice to incorporate something like \texttt{classicthesis}\footnote{\url{https://www.ctan.org/tex-archive/macros/latex/contrib/classicthesis/}}
+
+
+\printindex
+
+%% No bibliography down here, see \addbibresource near header
+
+\end{document}

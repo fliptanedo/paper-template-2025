@@ -1,0 +1,70 @@
+%!TEX root = ../sample_nicedocument.tex
+
+%% NICE FOOTER:
+\usepackage{wallpaper} % for 1st page footer tex.stackexchange: 
+
+%% DEFINE COLORS
+\usepackage{xcolor}
+  \definecolor{UCRnavy}{RGB}{14,76,146} % 
+  \definecolor{UCRyellow}{RGB}{238,168,23} % my remix
+  \definecolor{UCRblue}{RGB}{45,108,192}
+
+%% SECTION STYLING
+\usepackage{sectsty} % simpler than titlesec
+\sectionfont{\Large \UCRriftsec \color{UCRnavy}}
+\paragraphfont{\UCRFira} % May want to weak this with color
+\setcounter{secnumdepth}{0} 
+
+%% XELATEX
+%% Rift font: https://www.dafontfree.io/download/rift/
+\usepackage[no-math]{fontspec}
+  \newfontfamily\UCRriftsec[
+    Ligatures=TeX, 
+    LetterSpace=10.0, 
+    UprightFont={* Medium}]{Rift}
+  \newfontfamily\UCRrift[
+    Ligatures=TeX, 
+    LetterSpace=15.0, 
+    UprightFont={* Medium}, 
+    SizeFeatures={Size=10}]{Rift}
+  \newfontfamily\UCRFiraBold[
+    Ligatures=TeX, 
+    UprightFont={* Bold}%, 
+    ]{Fira Sans}
+  \newfontfamily\UCRFira[
+    Ligatures=TeX, 
+    UprightFont={*}%, 
+    ]{Fira Sans}
+  \newfontfamily\Helvetica[
+    Ligatures=TeX, 
+    UprightFont={* Light}%, 
+    ]{Helvetica Neue}
+
+\setsansfont{Helvetica Neue Light}
+
+%% LETTER-STYLE
+\usepackage{zref-totpages}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{flipsletter}{% for non-first page
+  \fancyhead[L]{}%
+  \fancyhead[R]{}%
+
+  % Footer on last page only (using zref-totpages)
+  \fancyfoot[C]{%
+    \ifnum\value{page}=\ztotpages
+      \footnotesize \UCRrift \textcolor{UCRnavy}{
+        particle.ucr.edu \quad$\cdot$\quad 
+        Tel: 951.827.6168 \quad$\cdot$\quad 
+        flip.tanedo@ucr.edu}
+    \else
+    \fi 
+  }
+}
+
+\fancypagestyle{firststylenice}{
+  \rhead{\footnotesize%
+  {\Helvetica \FlipTR}
+  }}
+\pagestyle{flipsletter}
+

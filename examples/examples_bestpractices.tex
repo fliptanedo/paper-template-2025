@@ -1,0 +1,198 @@
+%!TEX root = paper.tex
+%% Update the above with the appropriate root
+
+\section{\texorpdfstring{\LaTeX{} Style}{LaTeX Style}}
+
+There is not a definitive \LaTeX{} style guide analogous to \acro{PEP-8}. However, I do have my own set of preferences. Here style refers to how the \LaTeX{} source files are written. Two \texttt{tex} files may produce identical \texttt{pdf} outputs but be stylistically different. A well styled document is that is as easy as possible to parse and edit as a human being. I have done my best to keep the source files for \emph{this} template well styled.
+
+
+\subsection{Idiosyncracies}
+
+While some coding style guides require a fixed width for the document. This gives meaning to a line of code and makes the resulting source more readable by avoiding unintentional text wrapping. \LaTeX{} is a bit different in that it is a typesetting language that is meant to handle paragraphs of text. Because modern editors naturally have text wrapping options, I do not feel strongly about enforcing a document-wide character width limit. Paragraphs of text should be allowed to wrap if that makes sense. However, mathematics environments should strive to make use of white space in service to readability.
+
+
+\subsection{Spacing and Indents}
+
+White space helps distinguish the document structure. 
+
+\begin{enumerate}
+	\item Sections should have three empty lines between each other.
+	\item Sub-sections should have two empty lines between each other.
+	\item All other units of paragraphs should have one empty line space between them.
+\end{enumerate}
+One may use with commented out empty lines to separate sentences from one another. 
+% 
+	This produces no paragraph break between the sentences in the output, but can help separate different ideas within a paragraph.
+% 
+	Similarly, one can combine this with indents to help visually organize the logical flow of a paragraph.
+
+
+\subsection{Mathematics}
+
+Use comments and white space to separate mathematics environments from plain text.
+% 
+The contents of a mathematics environment should use ample white space to separate each mathematical object as if these were words in a sentence.
+% 
+\begin{lstlisting}[style=latexstyle]
+\begin{align}
+  S_{\textnormal{fix}}^{\textnormal{Bulk}}
+  & =
+  \frac{-1}{g^2} 
+  % \int d^{d+1} x  
+  \int \D[d+1]{x}  
+  \left( \frac{R}{z} \right)^{\!d-3}
+  \frac{1}{2\xi}
+  \left[
+    \partial_\mu A^\mu
+    -
+    \xi\left( 
+      z^{d-3} 
+      \partial_z \left( \frac{A_z}{z^{d-3}} \right)
+      -
+      \left( \frac{R}{z} \right)^{\!2} 
+      g^2 v(z) \, \pi
+    \right)
+  \right]^2 \ ,
+\label{eq:SGFBulk}
+\end{align}
+\end{lstlisting}
+% 
+This produces the following:
+\begin{align}
+	S_{\textnormal{fix}}^{\textnormal{Bulk}}
+	& =
+	\frac{-1}{g^2} 
+	% \int d^{d+1} x  
+	\int \D[d+1]{x}  
+	\left( \frac{R}{z} \right)^{\!d-3}\frac{1}{2\xi}
+	\left[
+	    \partial_\mu A^\mu
+	    -
+	    \xi\left( 
+	        z^{d-3} \partial_z \left(\frac{A_z}{z^{d-3}}\right)
+	        -
+	        \left(\frac{R}{z}\right)^{\!2} g^2 v(z)\, \pi
+	    \right)
+	\right]^2 \ ,
+% \label{eq:SGFBulk}
+\end{align}
+For long expressions, each line should be a well-defined `unit' of the mathematical expression. When there are multiple `words' in an expression, add white space to delimit them. The use of indentation to group elements of the same level should be self explanatory.
+
+For example, simple fractions do not need any white space, while more complicated fractions should provide some help:
+% 
+\begin{lstlisting}[style=latexstyle]
+\frac{ 
+	b_\mathcal{O}
+}{
+	\Lambda^{\Delta_\mathcal{O} - \frac{d}{2} - 1 }
+} 
+\end{lstlisting}
+% 
+This may seem like overkill, but in an expression with multiple fractions it is helpful to be able to quickly visually parse each piece of the expression.
+
+
+\subsection{When (not) to use macros}
+
+Use macros (\texttt{newcommand} or \texttt{renewcommand}) when there is an expression that you use often \emph{and that you may want to change in the future}. Perhaps you have a variable that needs to be used uniformly across a document, but whose specific symbol may change. Use a macro and make it easy to change that symbol without doing a find-and-replace. Macros are also useful for making \LaTeX{} source more readable by truncating a tedious series of commands. 
+
+However, do not use a macro just because it will make your life easier in the moment. One good reason \emph{not} to use a macro is as a shortcut for defining an environment. There is a `old style' of source preparation where someone will define macros:
+% 
+\begin{lstlisting}[style=latexstyle]
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\end{lstlisting}
+% 
+This seems like a shortcut because it saves you the trouble of writing
+% 
+\begin{lstlisting}[style=latexstyle]
+\begin{equation}
+	...
+\end{equation}
+\end{lstlisting}
+% 
+There is a narrow range of tech-savvy for which this `trick' is useful: one has to be sophisticated enough where typing in six characters rather than thirty-one characters will save significant time, but one must also be na\"ive enough to not use a text editor that can do (1) text expansions or (2) context-aware text highlighting. 
+% 
+This latter point is what can drive a collaborator crazy: some \LaTeX{} editors look for \textbackslash\texttt{begin}--\textbackslash\texttt{end} pairs to identify math mode and highlight text in a helpful way. Macros like \texttt{be} and \texttt{ee} screw this up and can lead to linter warnings. In summary, do not define macros to simplify environments.
+
+
+\subsection{Labels}
+
+Labels should be descriptive, even if that means that they labels become a bit lengthy. Each label should start with some indication of what it is labeling, \texttt{eq} for equation or \texttt{fig} for figure, for example. Use colons to separate words.
+% 
+\begin{lstlisting}[style=latexstyle]
+\label{eq:Euler:formula}
+\label{sec:introduction}
+\label{sec:introduction:past:work}
+\end{lstlisting}
+% 
+Many \LaTeX{} editors have intelligent autocomplete that makes it easy to insert references to past labels, so it does not take any more time to have a lengthy label. It does, however, save time if your labels are descriptive and easy to select from a drop-down menu. 
+
+
+\subsection{Collaborative writing}
+
+A key principle of \LaTeX{} source should be making the document collaboration-friendly. It is \emph{not} sufficient that your \LaTeX{} source compiles. Your code needs to be:
+\begin{enumerate}
+	\item \textbf{Readable}. Use white space in a consistent way to reflect the underlying structure of your document and your expressions. Use consistent spacing between sections and subsections. Use ample white space within an equation to make each piece easy to identify. 
+	\item \textbf{Editable}. Collaborators should be able to fix typos without having to do a deep dive of your source ode. 
+\end{enumerate}
+Here's what you are allowed to sacrifice in order to meet these goals:
+\begin{enumerate}
+	\item Your source code does not need to be short. Nobody will print out our source file. An equation that typesets to a single line can be spread out over a dozen lines if it helps the reader parse the \LaTeX{}. 
+	\item Your source code does not need to be confined to a single file. 
+	\item Your figures should be in a separate folder. In this template we use:
+% 
+\begin{lstlisting}[style=latexstyle]
+\graphicspath{{figures/}}
+\end{lstlisting}
+% 
+	\item Your pose writing---that is, writing that is not in math mode---can also be broken up using empty lines (comment out the line to avoid starting a new paragraph) and white space in order to elucidate the structure.\footnote{This can be useful if you tend to write convoluted sentences. You can `diagram' your sentence so that you see how each clause fits together.}
+\end{enumerate}
+
+A good way to collaborate is to use \texttt{git}/\texttt{github} or {Overleaf}. Overleaf is fantastic for abstracting away all version control. However, savvy users with an Overleaf membership can connect to Overleaf documents using \texttt{git}. This gives you the best of both worlds: you may use your favorite \acro{IDE} or \LaTeX{} editor and your favorite \texttt{git} client to synchronize to an Overleaf document that your collaborators can edit through the web interface if they wish.\footnote{You may notice that there is a \texttt{gitignore.txt} file in this template. It is a copy of the \texttt{.gitignore} file used by \texttt{git}. The \acro{macOS} interface does not like it when users try to manipulate files named dot-something since it worries that you might be messing up an important system file. Thus I have included a text file with the contents of \texttt{.gitignore} for users who simply want to copy this template folder using \acro{macOS}. You should then rename \texttt{gitignore.txt} to \texttt{.gitignore} if you are using \texttt{git}. Alternatively, download this file as a template from \texttt{github} and ignore \texttt{gitignore.txt} altogether.  }
+
+\subsection{\texorpdfstring{\LaTeX{} Style Guide}{LaTeX Style Guide}}
+
+\begin{itemize}
+	\item Use \texttt{hyperref}. Modern documents should be internally and externally hyperlinked. Clicking on a reference to an equation should bring the reader to that equation. Use a bibliography style that allows hyperlinks to the \texttt{arXiv}.
+	\item In \emph{informal} documents like this, I refer to websites (usually Stack Exchange) with a footnote and a hyperlink:
+	% 
+\begin{lstlisting}[style=latexstyle]
+...a great website.%
+\footnote{\url{https://www...}}
+\end{lstlisting}
+	% 
+	This avoids having to use \BibTeX for one-off references and makes the reference easily clickable. 
+	% 
+\end{itemize}
+
+
+\subsection{Copy Editing Style Guide}
+
+These are non-specific style points:
+
+\begin{itemize}
+	\item Footnotes go after punctuation.%
+			\footnote{Like this.}
+	\item Use whitespace to separate footnotes:
+	% 
+\begin{lstlisting}[style=latexstyle]
+We now make an important%
+  \footnote{
+	Observe the comment and whitespace.
+	There is no additional spacing between
+	`important' and this footnote. }
+point about style.
+\end{lstlisting}
+	%
+	\item You may consider using \textbackslash\texttt{frenchspacing} in your document.\footnote{Hat tip to Eddie Kohler, \url{https://www.read.seas.harvard.edu/~kohler/latex.html}}
+\end{itemize}
+
+
+\subsection{Breaking the rules}
+
+It is okay to break the style rules when doing so supports clarity. Sometimes it makes sense to throw in lots of extra white space to separate ideas.
+
+
+\subsection{Cleaning Up}
+
+Sometimes it is okay to leave a mess. You may want to preserve an old `verbose' version of your source files that has intermediate steps spelled out overly-pedagogically. You may find it useful to leave comments in the source files to remind yourself of the structure of your argument. These changes are preserved if you use version control, but sometimes you want the redundancy and convenience of having old text readily available. Just remember to go through your source code carefully to strip it of comments before submitting to a public repository like the \texttt{arXiv}.

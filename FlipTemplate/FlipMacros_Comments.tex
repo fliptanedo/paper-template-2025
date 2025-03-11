@@ -1,0 +1,105 @@
+%!TEX root = ../sample_paper.tex
+%% FLIP’S MACROS FOR COMMENTS
+%% USES: FlipPreamble.tex
+%% These are for communicating between collaborators
+
+
+
+%% INLINE COMMENTS
+%% ---------------
+%% \comment is now multiply defined with \usepackage[most]{tcolorbox}
+%% \newcommand{\comment}[2]{\textcolor{red}{[\textbf{#1}: #2]}}
+\newcommand{\acomment}[2]{\textcolor{red}{[\textbf{#1}: #2]}}
+
+%% SHORT COMMENT: copy this to make your own inline comment
+\newcommand{\flip}[1]{{
+  \color{green!50!black}
+  \footnotesize
+  [\textbf{\textsf{Flip}}: \textsf{#1}]
+  }}
+
+
+%% USAGE EXAMPLE
+%% -------------
+%% \acomment{Check}{Is this equation correcT?}
+%% \flip{I think it is correct.}
+
+
+
+%% LONG, BOXED COMMENTS
+%% --------------------
+% Uses: tcolorbox
+
+%% LONG COMMENT: copy this to make your own boxed comment
+\newenvironment{flipcomment}
+  {
+    \begin{tcolorbox}[
+      title=Flip Comment,
+      fonttitle=\bfseries\sffamily,
+      colframe=green!50!black,
+      colback=white
+      ]
+    \small
+  }{
+    \end{tcolorbox}
+  }
+
+%% LONG COMMENT: copy this to make your own boxed comment
+\newenvironment{boxedcomment}[1]
+  {
+    \begin{tcolorbox}[
+      title=#1,
+      fonttitle=\bfseries\sffamily,
+      colframe=green!50!black,
+      colback=white
+      ]
+    \small
+  }{
+    \end{tcolorbox}
+  }
+
+
+%% USAGE EXAMPLE:
+%% --------------
+%% \begin{flipcomment}
+%% This is a more involved comment, perhaps with equations
+%% \end{flipcomment}
+%%
+
+
+
+%% ADDING AND REMOVING TEXT
+%% ------------------------
+%% Analogous to LaTeXdiff-by-hand
+
+\newcommand{\new}[1]{{ 
+    \color{green!50!black}\footnotesize
+    [\textbf{\textsf{New}}: {#1}]}}
+
+%% REMOVE Environment
+%% https://tex.stackexchange.com/a/488582/8094
+%% Creates a nolabel environment that strips all labels
+%% This is useful to avoid multiple label definitions
+%% When marking old versions for deletion
+\usepackage{xparse}
+\ExplSyntaxOn
+\NewDocumentEnvironment{nolabel}{}{
+  \cs_set_eq:NN \label \use_none:n
+  \cs_set_eq:cN { ltx@label} \use_none:n
+}{}
+\ExplSyntaxOff 
+
+\newcommand{\remove}[1]{{
+  \begin{nolabel} 
+    \color{red!50!black}\footnotesize
+    [\textbf{\textsf{Removed}}: {#1}]
+    \end{nolabel}
+    }}
+
+%% USAGE EXAMPLE
+%% --------------
+%% \comment{Flip}{Can we discuss adding this:}
+%% \new{This text is new compared to the last version}
+%%
+%% \comment{Flip}{Can we discuss removing this?}
+%% \remove{Previous text that I propose removing.} 

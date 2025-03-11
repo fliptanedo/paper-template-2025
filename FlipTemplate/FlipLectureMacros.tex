@@ -1,0 +1,130 @@
+%!TEX root = ../sample_paper.tex
+%% Macros for lecture note typesettingj
+%% Needs to be loaded before FlipPreamble.tex
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BibLaTeX for footnote citations %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% BibLaTeX does not want the cite package
+%% from: https://tex.stackexchange.com/a/39418/8094
+\makeatletter
+\newcommand{\disablepackage}[2]{%
+  \disable@package@load{#1}{#2}%
+}
+\newcommand{\reenablepackage}[1]{%
+  \reenable@package@load{#1}%
+}
+\makeatother
+
+%% The following line prevents cite from being loaded
+\disablepackage{cite}{}
+
+%% We use biblatex for footnote citations
+\usepackage[utf8]{inputenc}     % inspire bibs, load before biblatex
+\disablepackage{inputenc}{}		% disable in preamble (double loading)
+\usepackage[style=verbose]{biblatex}
+% In main tex file
+% \addbibresource{FlipBib.bib}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Package for making an index %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{makeidx}		% For index
+\makeindex
+
+%% Use \printindex command
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SIDE NOTES AND RELATED COMMANDS %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{sidenotes}  
+\renewcommand*\thesidenote{\alph{sidenote}}  %% sidenotes indexed letters
+
+% Reset sidenote numbering
+\let\oldchapter\chapter
+\def\chapter{%
+  \setcounter{sidenote}{1}%
+  \oldchapter
+}
+
+
+%% Sidenote font and size
+%% PART I: https://tex.stackexchange.com/a/536083/8094
+%% n.b. a/532251/8094 broke the sidenote floating
+    \usepackage{xparse}
+    \let\oldmarginpar\marginpar
+    \RenewDocumentCommand{\marginpar}{om}{%
+      \IfNoValueTF{#1}
+        {\oldmarginpar{\mymparsetup #2}}
+        {\oldmarginpar[\mymparsetup #1]{\mymparsetup #2}}}
+
+    \newcommand{\mymparsetup}{\scriptsize\sffamily}        % New, using xparse
+
+    %% Old answer in a/532251/8094 makes all sidenotes marginnotes
+    %% New answer (above) uses marginpar 
+    % \renewcommand*{\marginfont}{\sffamily}    % Old
+    % \renewcommand{\sidecaption}{\scriptsize\sffamily}
+
+%% For marginnote font:
+%% https://tex.stackexchange.com/questions/532245/how-to-modify-fonts-in-sidenotes/536083#536083
+%% and see sidenotes documentation:
+%% marginnote is a way to place notes with no mark
+\renewcommand*{\marginfont}{\scriptsize\sffamily} 
+
+\newcommand{\sidenotenomark}[1]{\sidenote[\phantom{.}]{\hspace*{-.5em}#1}}
+
+
+
+%% Sans Serif Font Option for Sidenote
+%% We use Sans Serif for captions and side notes. 
+\usepackage[thin, scaled=1]{FiraSans} 
+\DeclareCaptionStyle{sidecaption}{font={sf,footnotesize}}
+\DeclareCaptionStyle{widefigure}{font={footnotesize,sf}}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% SILENCING Marginpar WARNINGS %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% https://www.lucasshen.com/notes/tex-warnings/tex-warnings
+
+\usepackage{silence}
+\WarningFilter{latex}{Marginpar on page}
+%% Silences: LaTeX Warning: Marginpar on page 1 moved.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% FORMATTING THE CHAPTER HEADER %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\sffamily\huge\bfseries\color{gray}}
+  {\chaptertitlename\ \thechapter}{20pt}{\Huge\color{black}\textrm}
+% \titleformat{\section}
+%   {\normalfont\sffamily\Large\bfseries\color{cyan}}
+%   {\thesection}{1em}{}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% FORMATTING THE PART PAGE %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://tex.stackexchange.com/a/202324
+% Descriptive text after a Part is on the same page
+
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\@endpart}{\vfil\newpage}{ \vspace{1em} }{}{}
+\xpatchcmd{\@endpart}{\newpage}{}{}{}
+\makeatother
+
