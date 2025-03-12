@@ -102,3 +102,4 @@ I include these files in this repository. They are in the `./FlipTemplate/` subf
 ## References
 * https://github.com/joaomlourenco/novathesis/blob/main/novathesis.cls
 * https://github.com/fmarotta/kaobook
+* https://practicaltypography.com
