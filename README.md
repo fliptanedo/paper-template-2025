@@ -109,3 +109,4 @@ I include these files in this repository. They are in the `./FlipTemplate/` subf
 
 ## Work to be done
 * Convert `lecturenotes` sample to KOMA script. See inspiration by [Ken Arroyo Ohori's thesis](https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html), implemented as [kaobook](https://github.com/fmarotta/kaobook) ([latextemplates](https://www.latextemplates.com/template/kaobook))
+* Another thing for `lecturenotes`: footnotes, while used sparingly, are important for providing bibliographic data 'on the spot.' I would like to give them the breathing room to do this. See [this intervention](https://tex.stackexchange.com/questions/598540/how-to-manipulate-textwidth-of-footnote).
