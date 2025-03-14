@@ -103,3 +103,7 @@ I include these files in this repository. They are in the `./FlipTemplate/` subf
 * https://github.com/joaomlourenco/novathesis/blob/main/novathesis.cls
 * https://github.com/fmarotta/kaobook
 * https://practicaltypography.com
+* [AIP Style Guide](https://publishing.aip.org/wp-content/uploads/2021/03/AIP_Style_4thed.pdf)
+
+## Work to be done
+* Convert `lecturenotes` sample to KOMA script. See inspiration by [Ken Arroyo Ohori's thesis](https://3d.bk.tudelft.nl/ken/en/2016/04/17/a-1.5-column-layout-in-latex.html), implemented as [kaobook](https://github.com/fmarotta/kaobook) ([latextemplates](https://www.latextemplates.com/template/kaobook))
