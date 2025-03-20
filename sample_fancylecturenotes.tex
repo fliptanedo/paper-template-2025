@@ -65,6 +65,11 @@
 % \etocsettocdepth{0}
 
 
+%% LONG FOOTNOTES
+\let\svfootnote\footnote
+\def\footnote#1{\svfootnote{\rightskip\dimexpr
+  -\marginparsep-\marginparwidth #1}}
+
 
 %% Load last:
 \input{FlipTemplate/FlipPreambleEnd}
@@ -216,7 +221,9 @@ This file (\verb!sample_fancylecturenotes.tex!) has not yet been formatted into 
 
 I primarily use \verb!\input{}! to chunk up my source because it does not introduce a \verb!\clearpage! the way that \verb!\include{}! does. However, when using \verb!\include{}! one may use the \verb!\includeonly{}! command to compile just one part of a document while \emph{maintaining all references} to other parts of the document.\footnote{\url{https://tex.stackexchange.com/a/250/8094}} 
 
+\subsection{Footnotes}
 
+It would be nice to give footnotes more breathing room since I use them for references.\footnote{For example \url{https://tex.stackexchange.com/questions/598540/how-to-manipulate-textwidth-of-footnote}}
 
 \chapter{The Lecture Notes Template}
 
@@ -235,8 +242,8 @@ I primarily use \verb!\input{}! to chunk up my source because it does not introd
 % \input{examples/examples}
 \input{examples/examples_teaching}
 % \input{examples/examples_listings}
-\input{examples/examples_bestpractices}
-\input{examples/examples_refs}
+% \input{examples/examples_bestpractices}
+% \input{examples/examples_refs}
 
 %% CHAPTER SUBAPPENDIX %% require report class
 \begin{subappendices}
