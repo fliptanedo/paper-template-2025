@@ -13,6 +13,59 @@
 \input{FlipTemplate/Flip_codeblocks}
 \input{FlipAdditionalHeader}    %% Modify this for each project
 
+%% 20 March 2025: fancy lecture notes edits
+
+%% FANCY
+% % Custom chapter format
+\titleformat{name=\chapter,numberless} % Unnumbered chapters (e.g., ToC)
+  [display]
+  % {\normalfont\huge\bfseries} % Styling for unnumbered chapters
+  {\normalfont\huge\sffamily} % Styling for unnumbered chapters
+  {} % No number
+  {0pt} % No space before title
+  {} % Center the title (optional)
+
+
+\titleformat{\chapter} % Applies only to numbered chapters
+  [display]
+  {\normalfont\sffamily\huge\color{gray!50!black}\bfseries} % Font styling
+  {} % No inline number prefix
+  {0pt} % No extra space before title
+  {%
+    \vspace{-3cm} % Move number and title higher
+    \makebox[0pt][l]{% Number box positioned in the right margin
+      % \rmfamily
+      \textcolor{UCRnavy}{
+        \hspace{\dimexpr\textwidth+.5cm} % Push number into margin
+        \fontsize{80}{80}\selectfont\textbf{\thechapter} % big chap #
+      }
+    }%
+    \vspace{1cm} % Spacing before title
+    \hfill
+  }
+  [ %\vspace{-.75cm}
+    %% include a local table of contents
+    {\small\mdseries
+        \localtableofcontents
+    }
+    \vspace{1cm}] % Separate bracket for title formatting
+
+
+
+%% DEFINE COLORS
+\usepackage{xcolor}
+  \definecolor{UCRnavy}{RGB}{14,76,146} % 
+  \definecolor{UCRyellow}{RGB}{238,168,23} % my remix
+  \definecolor{UCRblue}{RGB}{45,108,192}
+
+
+%% for chapter table of contents
+% minitoc is incompatible with titlesec, titletoc is cumbersome
+\usepackage{etoc}
+% \etocsettocdepth{0}
+
+
+
 %% Load last:
 \input{FlipTemplate/FlipPreambleEnd}
 
@@ -49,6 +102,10 @@
 
 
 
+
+
+
+
 \begin{document}
 
 
@@ -61,18 +118,22 @@
 %%%  FRONTMATTER    %%%%
 %%%%%%%%%%%%%%%%%%%%%%%%
 
+\vspace*{1cm}
 
 \begin{center}
     {\large \textsf{UC Riverside Physics XXX, Fall 20YY} \par}
-    {\huge \textbf{Course Title} \par}\vspace{.5em}
+    {\sffamily \huge \textcolor{UCRnavy}{\textbf{Fancy Lecture Notes}} \par}\vspace{.5em}
     {\large {Descriptive subtitle} \par}
     \vskip .5cm
 \end{center}
 
+\vspace*{1cm}
 \input{FlipAuthors}
 
-\vspace{2em}\noindent
-This is a good place to put the course description and any commentary about the nature of these notes. 
+
+\vspace{1cm}
+\noindent
+This is a fancy version of my lecture notes with additional inspiration from Federico Marotta's kaothesis style, which in turn is developed from  Ken Arroyo Ohori's thesis.
 
 
 \vspace{2em}
@@ -94,6 +155,9 @@ This is a good place to put the course description and any commentary about the 
 \end{center}
 
 \newpage
+%% Remove TR number (undoes redefinition in FlipPreamble.tex)
+\renewcommand{\etocaftertochook}{}
+
 
 \small
 \setcounter{tocdepth}{2}
@@ -104,11 +168,33 @@ This is a good place to put the course description and any commentary about the 
 \pagenumbering{arabic}  %% Turn on regular page numbers
 
 
+
+% LOCAL TABLE OF CONTENTS STYLING
+
+\etocsettocstyle{\footnotesize}{\normalsize}
+
+\etocsetstyle{section}
+  {\noindent}  % Style for section entries (no indentation, bold)
+  {\noindent}           % Style for section numbers (no indentation)
+  { 
+    % \etocnumber
+    \makebox[.75cm][l]{\etocnumber}
+    \etocname 
+    \dotfill 
+    \etocpage 
+    \par}               % Style before the entry
+  {}                    % Style after the entry
+
+\etocsettocdepth{1}
+
 %%%%%%%%%%%%%%%%%%%%%
 %%%  THE CONTENT  %%%
 %%%%%%%%%%%%%%%%%%%%%
 
+
+
 \chapter{The Lecture Notes Template}
+
 
 \section{Usage}
 
@@ -117,15 +203,26 @@ Unlike the paper template, the lecture note template is organized into chapters 
 
 \section{Things I'm working on ...}
 
+\subsection{fancylecturenotes}
+
+This file (\verb!sample_fancylecturenotes.tex!) has not yet been formatted into a clean document. Maybe it replaces the default lecture notes template? I don't know yet. There are lots of kludges in the sample file header.
+
 \subsection{Sidecite}
 \verb!\sidecite! does not work. Perhaps this may help?
-\url{https://github.com/fmarotta/kaobook/issues/15}
+\url{https://github.com/fmarotta/kaobook/issues/15} Maybe I do not care for now. I like having citations in the footer.
 
 
 \subsection{Includeonly}
 
 I primarily use \verb!\input{}! to chunk up my source because it does not introduce a \verb!\clearpage! the way that \verb!\include{}! does. However, when using \verb!\include{}! one may use the \verb!\includeonly{}! command to compile just one part of a document while \emph{maintaining all references} to other parts of the document.\footnote{\url{https://tex.stackexchange.com/a/250/8094}} 
 
+
+
+\chapter{The Lecture Notes Template}
+
+
+\section{test}
+\lipsum[2]
 
 
 \input{examples/examples_lecture}
@@ -168,6 +265,9 @@ for useful comments and discussions.
 %% Appendices
 \appendix
 \chapter{Proper appendix}
+% \chapterminitoc
+
+
 Unlike Chapter~\ref{sec:subappendix:eg}, this is an appendix at the end of the document rather than a sub-appendix within a chapter. Check out the index that follows this chapter.
 
 \section{Things to work on}
