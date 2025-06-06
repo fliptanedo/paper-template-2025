@@ -285,7 +285,12 @@ One place this shows up is if you have a subscript that is not a mathematical va
 
 \subsection{Units and spacing}
 
-Use a tie (tilde) to enforce a non-breaking short space between a number and its units: $0.5~\text{MeV}$. Units should not be italicized. If you want to be svelte you can use a thin space, \verb!\,!. (I prefer a thin space.) Some people like the \texttt{siunitx} package; I find it a little cumbersome for that it is, especially given that I usually write in natural units.
+Use a tie (\verb!~!) to enforce a non-breaking short space between a number and its units: $0.5~\text{MeV}$ is written as \verb!$0.5~\text{MeV}$!. Units should not be italicized. If you want to be svelte you can use a thin space (\verb!\,!).  Some people like the \texttt{siunitx} package; I find it a little cumbersome for that it is, especially given that I usually write in natural units. The Physical Review Style Guide suggests a space (which I take to be a tie) between a number and its unit and a thin space between consecutive units:
+\begin{align}
+	6\times 10^{-34}~\text{m}^2\,\text{kg}/\text{s}
+\end{align}
+is written as \verb!6\times 10^{-34}~\text{m}^2\,\text{kg}/\text{s}!.
+
 
 Some care is required for spacing with math operators\footnote{\url{https://tex.stackexchange.com/a/35585/8094}}. Here's a guideline for how to use different bits of manual spacing\footnote{\url{https://tex.stackexchange.com/questions/25810/when-one-should-use-spacing-line-quad-or}}.
 
