@@ -72,10 +72,14 @@
 {\setlength{\parskip}{.5\baselineskip}}% <Body font>
 {}% <Indent amount>
 {\bfseries\sffamily\color{blue!50!black}}% <Theorem head font>
-{.\;}% <Punctuation after theorem head>
+{\mdseries\\}% <Punctuation after theorem head>
 {.5em}% <Space after theorem headi> overwritten by tcolorbox
-{}% <Theorem head spec (can be left empty, meaning `normal')>
+{\thmname{#1}\thmnumber{ #2}\thmnote{{\sffamily\firabook\quad #3}}}% <Theorem head spec (can be left empty, meaning `normal')>
+% {}% <Theorem head spec (can be left empty, meaning `normal')>
 
+%% OTHER OPTIONS
+%% But renders differently in xelatex vs pdflatex
+% {\thmname{#1}\thmnumber{ #2}\thmnote{{\firabook\quad #3}}}% 
 
 
 \theoremstyle{flip}

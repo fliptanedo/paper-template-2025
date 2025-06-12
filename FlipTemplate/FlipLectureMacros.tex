@@ -1,6 +1,9 @@
 %!TEX root = ../sample_paper.tex
 %% Macros for lecture note typesettingj
 %% Needs to be loaded before FlipPreamble.tex
+%% LOADS: Fira Sans
+%%  Note: when using XeLaTeX, FiraSans package loads fontspec
+%%  Leads to different behavior
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% BibLaTeX for footnote citations %%
@@ -63,7 +66,7 @@
         {\oldmarginpar{\mymparsetup #2}}
         {\oldmarginpar[\mymparsetup #1]{\mymparsetup #2}}}
 
-    \newcommand{\mymparsetup}{\scriptsize\sffamily}        % New, using xparse
+    \newcommand{\mymparsetup}{\scriptsize\sffamily} % New, using xparse
 
     %% Old answer in a/532251/8094 makes all sidenotes marginnotes
     %% New answer (above) uses marginpar 
@@ -78,7 +81,11 @@
 
 \newcommand{\sidenotenomark}[1]{\sidenote[\phantom{.}]{\hspace*{-.5em}#1}}
 
+%%%%%%%%%%%%
+%%  FONT  %%
+%%%%%%%%%%%%
 
+% https://tex.stackexchange.com/a/458233/8094
 
 %% Sans Serif Font Option for Sidenote
 %% We use Sans Serif for captions and side notes. 
