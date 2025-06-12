@@ -1,4 +1,5 @@
-%!TEX root = lecturenotes.tex
+% BUT: REQUIRES XELATEX
+%!TEX root = ../sample_lecturenotes.tex
 %% Update the above with the appropriate root
 
 \chapter{Margins and Figures} %% if using report class
@@ -140,13 +141,15 @@ Here's a sentence with some citations.\sidenote{Let's make this work. $\e^{i\pi}
 
 \section{Some common environments}
 
+
+
 \begin{theorem}[Euler's Identity]
 \label{thm:euler:identity}
     Euler's identity\index{Euler's identity} is
     \begin{align}
         \e^{i\pi} = -1 \ .
     \end{align}
-    Note that we use the macro \verb!\e! for an upright $\e$ rather than an italicized $e$.
+    We use the macro \verb!\e! for an upright $\e$ rather than an italicized $e$.
 \end{theorem}
 
 \begin{exercise}
@@ -171,7 +174,19 @@ Here's a sentence with some citations.\sidenote{Let's make this work. $\e^{i\pi}
     \end{align}
 \end{example}
 
+\begin{example}[named]
+    test
+\end{example}
+\begin{bigidea}
+    Why are Key Ideas and Theorems larger font? Where did I define examples to have smaller fonts?
+\end{bigidea}
+\begin{bigidea}[named]
+    test
+\end{bigidea}
+
+
 \section{Some specialized environments}
+
 
 \begin{bigidea}[Principle of Easy Examples]
 \label{idea:easy:examples}

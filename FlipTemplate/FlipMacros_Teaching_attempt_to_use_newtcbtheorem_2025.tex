@@ -1,0 +1,214 @@
+% multiple TEX directives don't work with LaTeXTools
+%!TEX root = ../sample_lecturenotes.tex
+%!TEX program = xelatex
+%% MACROS FOR `theorem' ENVIRONMENTS IN LEC. NOTES
+%% USES: FlipPreamble.tex 
+
+\usepackage{appendix}   % for sub-appendices
+%% see https://tex.stackexchange.com/a/120723/8094
+%% ... and discussion therein
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                      %%
+%% THEOREM ENVIRONMENTS %%
+%% -------------------- %%
+%% Provides:            %%
+%%  theorem             %%
+%%  exercise            %%
+%%  bigidea             %%
+%%                      %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \DeclareTextFontCommand{\semiboldfont}{\addfontfeatures{Weight=600}}
+
+%% TEMPLATE
+
+    
+    \definecolor{myblue}{RGB}{0, 61, 116}
+
+    %% DEFINE "INNIE" THEOREM
+    %% https://tex.stackexchange.com/a/714651/8094
+    %%  fixes: make theorem title optional
+    \newtcbtheorem[number within=section]%
+    {imytheo}{My Theorem}% environment name, printed class
+    {%% OPTIONS
+        enhanced,
+        colback=blue!10,
+        frame hidden,
+        boxrule=0pt,
+        borderline west={2pt}{0pt}{myblue},
+        sharp corners,
+        detach title,
+        before upper=\tcbtitle\par\smallskip,
+        coltitle=myblue,
+        fonttitle=\bfseries\sffamily,
+        description font=\descriptionfira\mdseries,
+        separator sign none,
+        segmentation style={solid, black!85},
+        %
+        %% from: https://tex.stackexchange.com/questions/722707/
+        separator sign= {\,\,\,\,},
+    }%
+    {thm}% PREFIX in \label{PREFIX:theorem_reference}
+
+\NewDocumentEnvironment{mytheo}{ O{} }
+    {%
+      \begin{imytheo}{#1}{}%
+    }{%
+      \end{imytheo}%
+    }
+
+
+\newtheorem{theorem}{Theorem}[section]
+
+%% DEFINE "INNIE" THEOREM, fixes: optional thm title
+%% https://tex.stackexchange.com/a/714651/8094
+\newtcbtheorem[number within=section]%
+{itheorem}{Theorem}% innie enviro name, printed class
+{%% OPTIONS
+    coltitle=black,
+    enhanced,
+    colback=black!10,
+    frame hidden,
+    boxrule=0pt,
+    borderline west={2pt}{0pt}{gray},
+    sharp corners,
+    detach title,
+    before upper=\tcbtitle\par\smallskip,
+    fonttitle=\bfseries\sffamily,
+    description font=\descriptionfira\mdseries,
+    separator sign none,
+    segmentation style={solid, black!85},
+    separator sign= {\;}, % btwn thm # and descr.
+}%
+{thm}% PREFIX in \label{PREFIX:ref} (not used)
+
+%% counter
+% https://tex.stackexchange.com/a/375208/8094
+% https://stackoverflow.com/a/7797554
+\NewDocumentEnvironment{theorema}{ O{} }
+{%
+  \begin{itheorem}{#1}{}%
+}{%
+  \end{itheorem}%
+}
+
+%%% OLD
+
+% \theoremstyle{plain} % default
+% \theoremstyle{remark} % upright text, no extra space above or below
+
+%% THEOREM STYLE
+%% -------------
+%% From amsthm docs & tex.stackexchange.com/a/38264/8094
+%% NB: spacing is overwritten by tcolorbox environment
+\newtheoremstyle{flip}% <name>
+{0pt}% <Space above> overwritten by tcolorbox
+{0pt}% <Space below> overwritten by tcolorbox
+{\setlength{\parskip}{.5\baselineskip}}% <Body font>
+{}% <Indent amount>
+{\bfseries\sffamily}% <Theorem head font>
+{.}% <Punctuation after theorem head>
+{.5em}% <Space after theorem headi> overwritten by tcolorbox
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{flip}
+
+
+
+
+% \newtheorem{theorem}{Theorem}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{bigidea}{Key Idea}[section]
+    \newcommand{\bigidearef}{Key~Idea}
+    \newcommand{\bigidearefs}{Key~Ideas}
+
+% Change size of font in theorem environments
+\AtBeginEnvironment{example}{\footnotesize}
+\AtBeginEnvironment{exercise}{\footnotesize}
+\AtBeginEnvironment{theorem}{\small}
+\AtBeginEnvironment{bigidea}{\small}
+\AtBeginEnvironment{mytheo}{\footnotesize}
+
+
+% % TCOLORBOX settings
+% % https://tex.stackexchange.com/a/633497/8094
+% \tcolorboxenvironment{theorem}{
+%     enhanced, % Skin Family `enhanced'
+%     frame hidden,  % no frame
+%     interior hidden, % no interior color
+%     breakable, % allows box to flow across pages
+%     borderline west={2pt}{0pt}{gray},
+%     top=-5pt,
+%     bottom=0pt,
+%     before skip=20pt,
+%     after skip=20pt
+%     }
+
+\tcolorboxenvironment{exercise}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{red!50!black},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt
+    }
+
+\tcolorboxenvironment{example}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{green!50!black},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt
+    }
+
+\tcolorboxenvironment{bigidea}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{blue!50!black},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt,
+    }
+
+%%%% ADAPTED FROM
+%%%% https://tex.stackexchange.com/a/687287/8094
+
+% \definecolor{myblue}{RGB}{0, 61, 116}
+
+\newcounter{algorithmcounter}
+\newtcbtheorem[number within=section]{algorithminner}{Algorithm}
+{%
+    enhanced,
+    colback=blue!10,
+    frame hidden,
+    boxrule=0pt,
+    borderline west={2pt}{0pt}{myblue},
+    sharp corners,
+    detach title,
+    before upper=\tcbtitle\par\smallskip,
+    coltitle=myblue,
+    % description color=black!85,
+    fonttitle=\bfseries\sffamily,
+    description font=\mdseries,
+    separator sign none,
+    segmentation style={solid, black!85},
+}{th}
+
+\newenvironment{algorithm}[1]
+{\stepcounter{algorithmcounter}\begin{algorithminner}{#1}{algorithm-\arabic{section}-\arabic{algorithmcounter}}}
+{\end{algorithminner}}
+
+
+
+

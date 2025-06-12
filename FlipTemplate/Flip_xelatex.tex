@@ -12,7 +12,7 @@
 %% SECTION STYLING
 \usepackage{sectsty} % simpler than titlesec
 \sectionfont{\Large \UCRriftsec \color{UCRnavy}}
-\paragraphfont{\UCRFira} % May want to weak this with color
+\paragraphfont{\UCRFira} % May want to tweak this with color
 \setcounter{secnumdepth}{0} 
 
 %% XELATEX
@@ -29,7 +29,7 @@
     SizeFeatures={Size=10}]{Rift}
   \newfontfamily\UCRFiraBold[
     Ligatures=TeX, 
-    UprightFont={* Bold}%, 
+    UprightFont={* SemiBold}%, 
     ]{Fira Sans}
   \newfontfamily\UCRFira[
     Ligatures=TeX, 
@@ -41,6 +41,8 @@
     ]{Helvetica Neue}
 
 \setsansfont{Helvetica Neue Light}
+% \newcommand{\UCRFiraFont}{\fontspec{Fira Sans}\mdseries}
+
 
 %% LETTER-STYLE
 \usepackage{zref-totpages}

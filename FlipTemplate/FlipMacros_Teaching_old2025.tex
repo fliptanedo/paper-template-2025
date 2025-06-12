@@ -1,0 +1,129 @@
+%!TEX root = ../sample_lecturenotes.tex
+%% MACROS FOR `theorem' ENVIRONMENTS IN LEC. NOTES
+%% USES: FlipPreamble.tex FlipMacros_Comments.tex
+
+%% USAGE SUMMARY: EXAMPLES
+%% -----------------------
+%% \begin{exercise}
+%%   Solve the following differential equation..
+%%   \label{ex:solve:ode}
+%% \end{exercise} 
+
+\usepackage{appendix}   % for sub-appendices
+%% see https://tex.stackexchange.com/a/120723/8094
+%% ... and discussion therein
+
+% \theoremstyle{plain} % default
+% \theoremstyle{remark} % upright text, no extra space above or below
+
+%% THEOREM STYLE
+%% -------------
+%% From amsthm docs & tex.stackexchange.com/a/38264/8094
+%% NB: spacing is overwritten by tcolorbox environment
+\newtheoremstyle{flip}% <name>
+{0pt}% <Space above> overwritten by tcolorbox
+{0pt}% <Space below> overwritten by tcolorbox
+{\setlength{\parskip}{.5\baselineskip}}% <Body font>
+{}% <Indent amount>
+{\bfseries\sffamily}% <Theorem head font>
+{.}% <Punctuation after theorem head>
+{.5em}% <Space after theorem headi> overwritten by tcolorbox
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+\theoremstyle{flip}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{bigidea}{Key Idea}[section]
+    \newcommand{\bigidearef}{Key~Idea}
+    \newcommand{\bigidearefs}{Key~Ideas}
+
+% Change size of font in theorem environments
+\AtBeginEnvironment{example}{\footnotesize}
+\AtBeginEnvironment{exercise}{\footnotesize}
+\AtBeginEnvironment{theorem}{\small}
+\AtBeginEnvironment{bigidea}{\small}
+
+
+% TCOLORBOX settings
+% https://tex.stackexchange.com/a/633497/8094
+\tcolorboxenvironment{theorem}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{gray},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt
+    }
+
+\tcolorboxenvironment{exercise}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{red!50!black},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt
+    }
+
+\tcolorboxenvironment{example}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{green!50!black},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt
+    }
+
+\tcolorboxenvironment{bigidea}{
+    enhanced, % Skin Family `enhanced'
+    frame hidden,  % no frame
+    interior hidden, % no interior color
+    breakable, % allows box to flow across pages
+    borderline west={2pt}{0pt}{blue!50!black},
+    top=-5pt,
+    bottom=0pt,
+    before skip=20pt,
+    after skip=20pt,
+    }
+
+%%%% ADAPTED FROM
+%%%% https://tex.stackexchange.com/a/687287/8094
+
+\definecolor{myblue}{RGB}{0, 61, 116}
+
+\newcounter{algorithmcounter}
+\newtcbtheorem[number within=section]{algorithminner}{Algorithm}
+{%
+    enhanced,
+    colback=blue!10,
+    frame hidden,
+    boxrule=0pt,
+    borderline west={2pt}{0pt}{myblue},
+    sharp corners,
+    detach title,
+    before upper=\tcbtitle\par\smallskip,
+    coltitle=myblue,
+    % description color=black!85,
+    fonttitle=\bfseries\sffamily,
+    description font=\mdseries,
+    separator sign none,
+    segmentation style={solid, black!85},
+}{th}
+
+\newenvironment{algorithm}[1]
+{\stepcounter{algorithmcounter}\begin{algorithminner}{#1}{algorithm-\arabic{section}-\arabic{algorithmcounter}}}
+{\end{algorithminner}}
+
+
+\newtcbtheorem[number within=section]{mytheo}{My Theorem}%
+{colback=green!5,colframe=green!35!black,fonttitle=\bfseries}{th}
+
