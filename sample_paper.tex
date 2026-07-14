@@ -1,5 +1,6 @@
 %!TEX program = pdflatex
 %% https://github.com/fliptanedo/paper-template-2022
+%% consider using https://github.com/google-research/arxiv-latex-cleaner
 
 \documentclass[12pt]{article}
 
@@ -33,7 +34,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 
 \begin{center}
-    {\huge \textbf{Paper Title} \par}
+    {\sffamily \huge \textbf{Paper Title} \par}
     \vskip .5cm
 \end{center}
 \input{FlipAuthors}
@@ -57,6 +58,14 @@ This is a simple template for my papers. It's not very different from the plain 
 
 \section{Introduction}
 
+% \begin{theorem}[Flip's Theorem]
+% This is an example theorem.
+% \end{theorem}
+
+% \begin{example}[Flip's Example]
+% This is an example of an example
+% \end{example}
+
 This is a template for my papers and lecture notes. The sample file includes \LaTeX{} snippets for common components of such documents. It also includes some (opinionated) suggestions for best practices when preparing a \LaTeX{} document.
 
 There are now three templates:
@@ -73,10 +82,10 @@ There is example text located in \texttt{./examples/}. These include common chun
 \paragraph{Example \emph{Lorem Ipsum} text} \lipsum[5]
 
 \input{examples/examples}
-% \input{examples/examples_teaching} %% something wrong with bigideas environment
-\input{examples/examples_listings}
-\input{examples/examples_bestpractices}
-\input{examples/examples_refs}
+\input{examples/examples_teaching} %% something wrong with bigideas environment
+% \input{examples/examples_listings}
+% \input{examples/examples_bestpractices}
+% \input{examples/examples_refs}
 
 
 

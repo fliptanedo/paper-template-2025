@@ -2,6 +2,22 @@
 %% MACROS FOR `theorem' ENVIRONMENTS IN LEC. NOTES
 %% USES: FlipPreamble.tex 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%% HOMEWORK PROBLEMS %%
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumitem}
+
+% Create a custom clone of the 'enumerate' list specifically for problems; via Gemini
+\newlist{problems}{enumerate}{1}
+\setlist[problems]{
+    label=\textbf{Problem \thechapter.\arabic*},
+    leftmargin=*,
+    before=\small, % Drops the font size to small for the whole list
+    itemsep=2em    % Generates healthy breathing room between long problems
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %% SUB-APPENDICES       %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%

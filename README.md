@@ -1,3 +1,9 @@
+# WORK IN PROGRESS
+April 22, 2026
+I hacked my old template (2025)... haven't standardized anything. Drawing on lessons from DCBH paper and from recent work.
+
+* Sans Serif stuff in additional header
+
 # Flip's Paper Template 2025
 
 https://github.com/fliptanedo/paper-template-2025

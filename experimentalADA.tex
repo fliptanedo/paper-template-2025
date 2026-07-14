@@ -1,0 +1,47 @@
+%!TEX program = lualatex
+% \DocumentMetadata{uncompress,lang=en,
+%  tagging=on,
+%  pdfstandard=ua-2,pdfstandard=a-4f}
+
+\DocumentMetadata{tagging=on,
+    tagging-setup={math/setup=mathml-SE},
+    pdfstandard=ua-2,
+    lang=en-US
+}
+
+
+\documentclass{article}
+\usepackage{unicode-math}
+
+\title{Math tagged with Associated Files (luamml)}
+\author{LaTeX Team}
+\begin{document}
+
+\maketitle
+
+\section{Basic mathematical expressions}
+
+If $x$ is real, then $x^{2} \geq 0$.
+
+A matrix equation.
+\[
+\begin{pmatrix}0&1\\1&0\end{pmatrix}
+\begin{pmatrix}a&b\\c&d\end{pmatrix}
+=
+\begin{pmatrix}c&d\\a&b\end{pmatrix}
+\]
+
+test
+\begin{align}
+    \vec{v} 
+    &\stackrel{?}{=} 
+    \begin{pmatrix}
+        x
+        \\
+        y
+        \\
+        z
+    \end{pmatrix} \ ,
+\end{align}
+
+\end{document}
