@@ -37,10 +37,7 @@
     \label{fig:subfigure:example}
 \end{figure}
 
-Use 
-% \textbackslash\texttt{centering}
-\verb!\centering!
-rather than the \texttt{center} environment in figure environments to avoid adding extra vertical space.\footnote{\url{https://tex.stackexchange.com/a/23653/8094}\label{foot:centering}}
+Use \verb!\centering! rather than the \texttt{center} environment in figure environments to avoid adding extra vertical space.\footnote{\url{https://tex.stackexchange.com/a/23653/8094}\label{foot:centering}}
 
 \begin{wrapfigure}{l}{0.3\textwidth}
 	\includegraphics[width=0.9\linewidth]{example-image-a}
@@ -54,16 +51,18 @@ rather than the \texttt{center} environment in figure environments to avoid addi
 A trick with: 
 % \verb!\eqfig{example-image-a}{width=.1\textwidth}!. 
 % 
-% \begin{quote}
-% \verb!\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}!
-% \end{quote}
+\begin{quote}
+\verb!\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}!
+\end{quote}
 % 
-This is a command that we define in \texttt{FlipMacros.tex}. \flip{It may be better to define this so that users input their own includegraphics.}
-
+This is a command that we define in \texttt{FlipMacros.tex}. 
+% \flip{It may be better to define this so that users input their own includegraphics.}
+It is shorthand for
+\begin{quote}
+\verb!\vcenter{ \hbox{ \includegraphics[width=.1\textwidth]{{example-image-a}} } }!
+\end{quote}
+and it allows us to include figures in equations:
 \begin{align}
-	% \vcenter{
-	% 	\hbox{\includegraphics[width=.1\textwidth]{{example-image-a}}}
-	% 	}
 	\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}
 	&=
 	i g \gamma^\mu \ . 
@@ -83,20 +82,17 @@ This is a command that we define in \texttt{FlipMacros.tex}. \flip{It may be bet
 	ig  \ . 
 	\label{eq:scalar}
 	\\
-	% \vcenter{
-	% 	\hbox{\includegraphics[width=.1\textwidth]{{example-image-a}}}
-	% 	}
-	%% Shortcut: use \eqfig command
-	% \eqfig{example-image-a}{width=.1\textwidth}
 	\eqfig{\includegraphics[width=.1\textwidth]{{example-image-a}}}
 	&=
 	g \gamma^5 \ . 
 	\label{eq:pseudo}
 \end{align}
+This is great for Feynman diagrams.
 
 
 \subsection{Best practices for tables}
 \label{sec:tables}
+See Table~\ref{table:elements}.
 
 \begin{table}
 	\renewcommand{\arraystretch}{1.3} % spacing between rows
@@ -161,7 +157,7 @@ For several equations with the range done automatically:
 	\item Using \texttt{cleverefs}'s \texttt{cref}: \cref{eq:vector,eq:pseudo,eq:axial,eq:scalar}
 \end{itemize}
 
-\texttt{cleveref} automatically identifies the type of object it is referring to. Thus you can use \verb!\cref! to refer to any label, for example \cref{foot:centering}.\footnote{Note that this example does not work: the automatic text does not say `footnote,' it says `section.'} You can use \verb!\Cref! to have a capitalized the cross reference name. For example: the sections above are \Cref{sec:macros,sec:cleveref,sec:figs,sec:tables}.
+\texttt{cleveref} automatically identifies the type of object it is referring to. Thus you can use \verb!\cref! to refer to any label, for example \cref{foot:centering}. You can use \verb!\Cref! to have a capitalized the cross reference name. For example: the sections above are \Cref{sec:macros,sec:cleveref,sec:figs,sec:tables}. We call \texttt{cleveref} in \texttt{./FlipTemplate/FlipPreambleEnd.tex}.
 
 
 \subsection{Sub-equations}
@@ -177,12 +173,12 @@ One can also wrap a \texttt{align} environment with a \texttt{subequations} envi
 	\label{eq:subequation:2}
 \end{align}
 \end{subequations}
-where we can now refer to the pair of equations \eqref{eq:subequations} or simply one of the equations, \eqref{eq:subequation:2}. This also works in \texttt{cleveref}: \cref{eq:subequations} and \cref{eq:subequation:2}.
+where we can now refer to the pair of equations \eqref{eq:subequations} or simply one of the equations, \eqref{eq:subequation:2}. This also works in \texttt{cleveref}: \cref{eq:subequations} and \cref{eq:subequation:2}. 
 
 
 \subsection{Referring to Equations}
 
-One style suggestion is to use parentheses to refer to an equation with no additional modifiers \emph{except} at the beginning of a sentence.\footnote{\url{https://academia.stackexchange.com/a/21793}} For example: ``The second term in (3)...'' and ``Equation~(3) has two terms...''
+One style suggestion is to use parentheses to refer to an equation with no additional modifiers \emph{except} at the beginning of a sentence.\footnote{\url{https://academia.stackexchange.com/a/21793}} For example: ``The second term in (3)...'' and ``Equation~(3) has two terms...'' We implement this in the options for \texttt{cleverref} in \texttt{./FlipTemplate/FlipPreambleEnd.tex}.
 
 
 
@@ -228,6 +224,7 @@ It has label \texttt{eq:samename}.
 	\end{align}
 	It has label \texttt{eq:samename}.
 }
+
 
 This is essentially a manual version of the \texttt{latexdiff} command. This command can be notoriously fussy around math environments. I personally advocate for using \texttt{git}-related tools to quickly identifying where a version was edited and then using tags to identify edits that need to be highlighted for further discussion. One nice thing about the \texttt{remove} tag above is that it also strips any \texttt{label}s so that there are no `multiply defined label' warnings and one can uniquely refer to a single equation, \eqref{eq:samename}.
 
@@ -464,3 +461,4 @@ Remember that equation above? Let's write it again,
 	\tag{\ref{eq:e:ipi}}
 \end{align}
 Observe that these have the same equation number. Instead of \texttt{label} we use \texttt{tag} with argument \texttt{ref}.
+
