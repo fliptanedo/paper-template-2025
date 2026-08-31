@@ -51,21 +51,23 @@
 \usepackage{cite}			  % group cites
 \usepackage{wrapfig}    
 
-%% TABLES IN LaTeX
-%% ---------------
-\usepackage{booktabs}		% professional tables
-% \usepackage{nicefrac}		% frac. in tables; calld xfrac above
-\usepackage{multirow}		% multirow elements in a table
-\usepackage{arydshln}		% dashed lines in arrays
-
-%% Additional mods in FlipAdditionalHeader.tex
-
 %% Other Packages and Notes
 %% ------------------------
 \usepackage[font=small]{caption} 	% caption font is small
 \usepackage{float}         			  % for strict placement e.g. [H]
 \usepackage{lineno}               % Line numbers (put \linenumbers in main text)
 \usepackage{ccicons}              % Creative Commons License Icons
+
+%% TABLES IN LaTeX
+%% ---------------
+\usepackage{booktabs}   % professional tables
+% \usepackage{nicefrac}   % frac. in tables; calld xfrac above
+\usepackage{multirow}   % multirow elements in a table
+% \usepackage{arydshln}   % dashed lines, causes errors DEPRECATED; use nicematrix
+\usepackage{nicematrix}
+
+%% Additional mods in FlipAdditionalHeader.tex
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%  DOCUMENT PROPERTIES  %%%%
