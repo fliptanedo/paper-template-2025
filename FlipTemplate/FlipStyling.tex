@@ -1,0 +1,41 @@
+%!TEX root = ../sample_paper.tex
+%% FLIP’S MACROS 
+%% USES: FlipPreamble.tex
+
+%%%%%%%%%%%%%%%%
+%% FONT STUFF %%
+%%%%%%%%%%%%%%%%
+
+\usepackage{lmodern}
+
+%% FOR SANS SERIF CAPTIONS
+% \usepackage[light]{FiraSans}
+\usepackage[scaled=0.92]{helvet} % Helvetica sans-serif 
+\usepackage[T1]{fontenc}         % Recommended for font encoding
+\captionsetup{labelfont=sf, textfont=sf, font=scriptsize}
+
+%% FOR TITLES
+\usepackage{titlesec}
+% % Style for \section
+\titleformat{\section}
+{\sffamily\bfseries\Large}
+{\color{gray}\thesection}
+{1em}
+{}
+
+% Style for \subsection (the "subtitle" of your section)
+\titleformat{\subsection}
+{\color{gray!50!black}\sffamily\bfseries\large}{\thesubsection}{1em}{}
+
+\titleformat{\paragraph}[runin]
+  {\color{gray!50!black}\sffamily\bfseries}
+  {\theparagraph}{1em}{}[\ \ ]
+
+%% Table of Contents
+% \usepackage{tocloft}
+%% Smaller, gray header:
+% \renewcommand{\cfttoctitlefont}{\sffamily\bfseries\large\color{gray}}
+
+%% No header
+% 1. Remove the text "Contents"
+\renewcommand{\contentsname}{}
