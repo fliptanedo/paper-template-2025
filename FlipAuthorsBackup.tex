@@ -1,0 +1,65 @@
+%!TEX root = paper.tex
+%% Update the above with the appropriate root
+
+%% AUTHOR LIST: separated to keep main file clean
+%% This is not part of the document that is updated often.
+
+%% Multi line institution?  Use \phantom{$^{c}$\,}
+
+%%%%%%%%%%%%%%%
+%%  AUTHORS  %%
+%%%%%%%%%%%%%%%
+
+\newcommand{\authorA}{Flip Tanedo}
+\newcommand{\emailA}{flip.tanedo@ucr.edu}
+\newcommand{\orcidA}{0000-0003-4642-2199}
+\newcommand{\institutionA}{
+	Department of Physics \& Astronomy, 
+	University of  California, Riverside, 
+	\normalfont{CA} 92521 \normalfont{USA}}
+
+\newcommand{\authorB}{Your Name}
+\newcommand{\emailB}{your.name@ucr.edu}
+\newcommand{\orcidB}{0000-0003-4642-2200}
+\newcommand{\institutionB}{
+	Department of Physics \& Astronomy, 
+	University of  California, Elsewhere, 
+	\normalfont{CA} 99999 \normalfont{USA}}
+
+\newcommand{\authorC}{Tu Nombre}
+\newcommand{\emailC}{tu.nombre@ucr.edu}
+\newcommand{\orcidC}{0000-0003-4642-2201}
+\newcommand{\institutionC}{
+	Department of Physics \& Astronomy
+	and
+	Institute of Some Long-Named Topic, 
+	\\ \phantom{$^{c}$\,}
+	University of New Line, Elsewhere City, 
+	\normalfont{XY} 99999 \normalfont{USA}}
+
+
+%%%%%%%%%%%%%%%%%%
+%%  FORMATTING  %%
+%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+	\textbf{\authorA}$^{a}$,
+	\textbf{\authorB}$^{b}$,
+	and
+	\textbf{\authorC}$^{c}$
+	\par
+
+	\texttt{\footnotesize \email{\emailA}}~\orcidlink{\orcidA},
+	\texttt{\footnotesize \email{\emailB}}~\orcidlink{\orcidB},
+	\texttt{\footnotesize \email{\emailC}}~\orcidlink{\orcidC}
+\end{center}
+
+
+% quotation environment is same width as abstract
+\begin{quotation}\noindent
+	\footnotesize
+	\noindent$^{a}$
+	\textit{\institutionA} 
+	\\ $^{b}$ \textit{\institutionB} 
+	\\ $^{c}$ \textit{\institutionC} 
+\end{quotation}

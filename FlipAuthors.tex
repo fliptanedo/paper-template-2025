@@ -1,65 +1,121 @@
-%!TEX root = paper.tex
+%!TEX root = sample_paper.tex
 %% Update the above with the appropriate root
 
-%% AUTHOR LIST: separated to keep main file clean
-%% This is not part of the document that is updated often.
+%% PGF: Portable Graphics Format
+%% Part of the TikZ engine, here we use it for 
+%% structured data handling within LateX
 
-%% Multi line institution?  Use \phantom{$^{c}$\,}
+%% This code was written with significant assistance from Gemini 3.6 Flash
+%% based on a hard-coded (not elegant) version originally written by Flip Tanedo
+
+%%%%%%%%%%%%%%%%
+%%   ENGINE   %%
+%%%%%%%%%%%%%%%%
+\newcommand{\defineauthor}[5]{%
+  \pgfkeys{/author data/#1/name/.initial={#2}}%
+  \pgfkeys{/author data/#1/email/.initial={#3}}%
+  \pgfkeys{/author data/#1/orcid/.initial={#4}}%
+  \pgfkeys{/author data/#1/institution/.initial={#5}}%
+}
+
+\newcommand{\getname}[1]{\pgfkeysvalueof{/author data/#1/name}}
+\newcommand{\getemail}[1]{\pgfkeysvalueof{/author data/#1/email}}
+\newcommand{\getorcid}[1]{\pgfkeysvalueof{/author data/#1/orcid}}
+\newcommand{\getinst}[1]{\pgfkeysvalueof{/author data/#1/institution}}
+
 
 %%%%%%%%%%%%%%%
 %%  AUTHORS  %%
 %%%%%%%%%%%%%%%
 
-\newcommand{\authorA}{Flip Tanedo}
-\newcommand{\emailA}{flip.tanedo@ucr.edu}
-\newcommand{\orcidA}{0000-0003-4642-2199}
-\newcommand{\institutionA}{
-	Department of Physics \& Astronomy, 
-	University of  California, Riverside, 
-	\normalfont{CA} 92521 \normalfont{USA}}
 
-\newcommand{\authorB}{Your Name}
-\newcommand{\emailB}{your.name@ucr.edu}
-\newcommand{\orcidB}{0000-0003-4642-2200}
-\newcommand{\institutionB}{
-	Department of Physics \& Astronomy, 
-	University of  California, Elsewhere, 
-	\normalfont{CA} 99999 \normalfont{USA}}
+\defineauthor{tanedo}
+  {Flip Tanedo}
+  {flip.tanedo@ucr.edu}
+  {ORCID-ORCID-ORCID-ORCID}
+  {Department of Physics \& Astronomy, University of California, Riverside, \normalfont{CA} 92521 \normalfont{USA}}
 
-\newcommand{\authorC}{Tu Nombre}
-\newcommand{\emailC}{tu.nombre@ucr.edu}
-\newcommand{\orcidC}{0000-0003-4642-2201}
-\newcommand{\institutionC}{
-	Department of Physics \& Astronomy
-	and
-	Institute of Some Long-Named Topic, 
-	\\ \phantom{$^{c}$\,}
-	University of New Line, Elsewhere City, 
-	\normalfont{XY} 99999 \normalfont{USA}}
+\defineauthor{yourname}
+  {Your Name}
+  {your.name@ucr.edu}
+  {0000-0003-4642-2200}
+  {Department of Physics, University of Somewhere, Elsewhere, \normalfont{CA} 99999 \normalfont{USA}}
+
+% Example with a long address that needs two lines
+\defineauthor{tunombre}
+  {Tu Nombre}
+  {tu.nombre@ucr.edu}
+  {0000-0003-4642-2201}
+  {%
+  Department of Physics \& Astronomy and Institute of Some Long-Named Topic, \\ 
+  University of New Line, Elsewhere City, \normalfont{XY} 99999 \normalfont{USA}
+  }
+
 
 
 %%%%%%%%%%%%%%%%%%
 %%  FORMATTING  %%
 %%%%%%%%%%%%%%%%%%
 
-\begin{center}
-	\textbf{\authorA}$^{a}$,
-	\textbf{\authorB}$^{b}$,
-	and
-	\textbf{\authorC}$^{c}$
-	\par
+%% Define Author Ordering
+\newcommand{\authororder}{yourname, tanedo, tunombre}
 
-	\texttt{\footnotesize \email{\emailA}}~\orcidlink{\orcidA},
-	\texttt{\footnotesize \email{\emailB}}~\orcidlink{\orcidB},
-	\texttt{\footnotesize \email{\emailC}}~\orcidlink{\orcidC}
+
+%%%%%%%%%%%%%%%%%%
+%%  FORMATTING  %%
+%%%%%%%%%%%%%%%%%%
+
+% Helper to count total elements in comma-separated list
+\newcounter{totalauthors}
+\newcounter{authorindex}
+
+\newcommand{\countauthors}{%
+  \setcounter{totalauthors}{0}%
+  \foreach \k in \authororder {%
+    \stepcounter{totalauthors}%
+  }%
+}
+
+
+
+
+\begin{center}
+  % Run count first
+  \countauthors
+  
+  % Print Names with proper separators (comma or 'and')
+  \setcounter{authorindex}{0}%
+  \foreach \key in \authororder {%
+    \stepcounter{authorindex}%
+    \ifnum\value{authorindex}>1 %
+      \ifnum\value{authorindex}=\value{totalauthors} and \else, \fi
+    \fi
+    \textbf{\getname{\key}}$^{\alph{authorindex}}$%
+  }%
+  \par\vspace{1em}
+
+  % Print Emails and ORCIDs
+  \setcounter{authorindex}{0}%
+  \foreach \key in \authororder {%
+    \stepcounter{authorindex}%
+    \ifnum\value{authorindex}>1 , \fi
+    \texttt{\footnotesize \email{\getemail{\key}}}~\orcidlink{\getorcid{\key}}%
+  }%
 \end{center}
 
 
-% quotation environment is same width as abstract
+% Print Affiliations
 \begin{quotation}\noindent
-	\footnotesize
-	\noindent$^{a}$
-	\textit{\institutionA} 
-	\\ $^{b}$ \textit{\institutionB} 
-	\\ $^{c}$ \textit{\institutionC} 
+ 	\footnotesize
+ 	\setcounter{authorindex}{0}%
+% 
+ 	\foreach \key in \authororder {%
+		\stepcounter{authorindex}%
+		\ifnum\value{authorindex}>1 \\ \fi
+		$^{\alph{authorindex}}$~%
+		%% keep vertical alignment if there's  a newline
+		\parbox[t]{0.92\textwidth}{%
+ 	  		\textit{\getinst{\key}}%
+		}%
+ 	}%
 \end{quotation}
