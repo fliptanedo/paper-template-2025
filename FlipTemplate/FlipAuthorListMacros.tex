@@ -1,0 +1,30 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Experimenting with PGF %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pgfkeys}
+\usepackage{pgffor} % For looping over authors
+
+%%%%%%%%%%%%%%%%
+%%   ENGINE   %%
+%%%%%%%%%%%%%%%%
+
+% 1. Define institution database
+\newcommand{\defineinst}[2]{%
+  \pgfkeys{/inst data/#1/.initial={#2}}%
+}
+\newcommand{\getinst}[1]{\pgfkeysvalueof{/inst data/#1}}
+
+% 2. Define author database
+\newcommand{\defineauthor}[5]{%
+  \pgfkeys{/author data/#1/name/.initial={#2}}%
+  \pgfkeys{/author data/#1/email/.initial={#3}}%
+  \pgfkeys{/author data/#1/orcid/.initial={#4}}%
+  \pgfkeys{/author data/#1/instkeys/.initial={#5}}%
+}
+
+\newcommand{\getname}[1]{\pgfkeysvalueof{/author data/#1/name}}
+\newcommand{\getemail}[1]{\pgfkeysvalueof{/author data/#1/email}}
+\newcommand{\getorcid}[1]{\pgfkeysvalueof{/author data/#1/orcid}}
+\newcommand{\getauthorinsts}[1]{\pgfkeysvalueof{/author data/#1/instkeys}}
+

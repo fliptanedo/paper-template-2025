@@ -1,121 +1,226 @@
 %!TEX root = sample_paper.tex
-%% Update the above with the appropriate root
 
-%% PGF: Portable Graphics Format
-%% Part of the TikZ engine, here we use it for 
-%% structured data handling within LateX
+%% Runs with ./FlipTemplate/FlipAuthorListMacros.tex
+%% Instructions: Update INSTITUTIONS, AUTHORS, and AUTHOR ORDER
 
-%% This code was written with significant assistance from Gemini 3.6 Flash
-%% based on a hard-coded (not elegant) version originally written by Flip Tanedo
+%%%%%%%%%%%%%%%%%%%%
+%%  INSTITUTIONS  %%
+%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%
-%%   ENGINE   %%
-%%%%%%%%%%%%%%%%
-\newcommand{\defineauthor}[5]{%
-  \pgfkeys{/author data/#1/name/.initial={#2}}%
-  \pgfkeys{/author data/#1/email/.initial={#3}}%
-  \pgfkeys{/author data/#1/orcid/.initial={#4}}%
-  \pgfkeys{/author data/#1/institution/.initial={#5}}%
-}
-
-\newcommand{\getname}[1]{\pgfkeysvalueof{/author data/#1/name}}
-\newcommand{\getemail}[1]{\pgfkeysvalueof{/author data/#1/email}}
-\newcommand{\getorcid}[1]{\pgfkeysvalueof{/author data/#1/orcid}}
-\newcommand{\getinst}[1]{\pgfkeysvalueof{/author data/#1/institution}}
+\defineinst{ucr}{Department of Physics \& Astronomy, University of California, Riverside, \normalfont{CA} 92521 \normalfont{USA}}
+\defineinst{cern}{CERN, Theoretical Physics Department, CH-1211 Geneva 23, Switzerland}
+\defineinst{somewhere}{Department of Physics, University of Somewhere, Elsewhere, \normalfont{CA} 99999 \normalfont{USA}}
 
 
 %%%%%%%%%%%%%%%
 %%  AUTHORS  %%
 %%%%%%%%%%%%%%%
 
+\defineauthor{yourname}
+  {Your Name}
+  {your.name@ucr.edu}
+  {0000-0003-4642-2200}
+  {ucr, somewhere} 
 
 \defineauthor{tanedo}
   {Flip Tanedo}
   {flip.tanedo@ucr.edu}
   {ORCID-ORCID-ORCID-ORCID}
-  {Department of Physics \& Astronomy, University of California, Riverside, \normalfont{CA} 92521 \normalfont{USA}}
+  {ucr} 
 
-\defineauthor{yourname}
-  {Your Name}
-  {your.name@ucr.edu}
-  {0000-0003-4642-2200}
-  {Department of Physics, University of Somewhere, Elsewhere, \normalfont{CA} 99999 \normalfont{USA}}
-
-% Example with a long address that needs two lines
 \defineauthor{tunombre}
   {Tu Nombre}
   {tu.nombre@ucr.edu}
   {0000-0003-4642-2201}
-  {%
-  Department of Physics \& Astronomy and Institute of Some Long-Named Topic, \\ 
-  University of New Line, Elsewhere City, \normalfont{XY} 99999 \normalfont{USA}
-  }
+  {somewhere, cern} % Dynamic multi-institution assignment
 
 
+%%%%%%%%%%%%%%%%%%%%
+%%  AUTHOR ORDER  %%
+%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%
-%%  FORMATTING  %%
-%%%%%%%%%%%%%%%%%%
-
-%% Define Author Ordering
 \newcommand{\authororder}{yourname, tanedo, tunombre}
 
+%% For long author lists, insert NEWLINE for linebreak
+%% e.g. \newcommand{\authororder}{dent, hartl, larson, NEWLINE, strigari, tanedo, xu}
 
-%%%%%%%%%%%%%%%%%%
-%%  FORMATTING  %%
-%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%  DO NOT TOUCH  %%
+%%%%%%%%%%%%%%%%%%%%
 
-% Helper to count total elements in comma-separated list
+
 \newcounter{totalauthors}
 \newcounter{authorindex}
+\newcounter{instcount}
+\newcounter{tmpcnt}
+\newcounter{loopidx}
 
-\newcommand{\countauthors}{%
-  \setcounter{totalauthors}{0}%
-  \foreach \k in \authororder {%
-    \stepcounter{totalauthors}%
+\gdef\orderedinstkeys{}
+
+% Step 1: Parse authors (Ignore NEWLINE)
+\setcounter{instcount}{0}%
+\foreach \auth in \authororder {%
+  \edef\testauth{\auth}%
+  \def\newlinekey{NEWLINE}%
+  \ifx\testauth\newlinekey
+  \else
+    \edef\currentinsts{\getauthorinsts{\auth}}%
+    \foreach \ikey in \currentinsts {%
+      \ifcsname instnum@\ikey\endcsname\else
+        \stepcounter{instcount}%
+        \expandafter\xdef\csname instnum@\ikey\endcsname{\the\value{instcount}}%
+        \ifx\orderedinstkeys\empty
+          \xdef\orderedinstkeys{\ikey}%
+        \else
+          \xdef\orderedinstkeys{\orderedinstkeys,\ikey}%
+        \fi
+      \fi
+    }%
+  \fi
+}%
+
+% Step 2: Fixed Superscript Builder Engine (Prints inline, bypassing loop scoping)
+\newcommand{\printauthorsuperscript}[1]{%
+  \setcounter{loopidx}{0}%
+  \edef\myinsts{\getauthorinsts{#1}}%
+  \foreach \ikey in \myinsts {%
+    \stepcounter{loopidx}%
+    \edef\instnum{\csname instnum@\ikey\endcsname}%
+    \setcounter{tmpcnt}{\instnum}%
+    \ifnum\value{loopidx}>1 , \fi
+    \alph{tmpcnt}%
   }%
 }
 
+% Count actual authors only (Excluding NEWLINE)
+\newcommand{\countauthors}{%
+  \setcounter{totalauthors}{0}%
+  \foreach \k in \authororder {%
+    \edef\testkey{\k}%
+    \def\newlinekey{NEWLINE}%
+    \ifx\testkey\newlinekey\else
+      \stepcounter{totalauthors}%
+    \fi
+  }%
+}
 
-
+%%%%%%%%%%%%%%%%%%
+%% RENDER BLOCK %%
+%%%%%%%%%%%%%%%%%%
 
 \begin{center}
-  % Run count first
   \countauthors
   
-  % Print Names with proper separators (comma or 'and')
+  % Print Author Names with Superscript Letters
   \setcounter{authorindex}{0}%
+  \newcounter{lineauthorindex}% Tracks position on the current line for formatting commas
+  \setcounter{lineauthorindex}{0}%
   \foreach \key in \authororder {%
-    \stepcounter{authorindex}%
-    \ifnum\value{authorindex}>1 %
-      \ifnum\value{authorindex}=\value{totalauthors} and \else, \fi
+    \edef\testkey{\key}%
+    \def\newlinekey{NEWLINE}%
+    \ifx\testkey\newlinekey
+      \par\vspace{0.3em}% Inserts line break and slight vertical space
+      \setcounter{lineauthorindex}{0}% Reset line position for the next line
+    \else
+      \stepcounter{authorindex}%
+      \stepcounter{lineauthorindex}%
+      \ifnum\value{lineauthorindex}>1 %
+        \ifnum\value{authorindex}=\value{totalauthors} and \else, \fi
+      \fi
+      \textbf{\getname{\key}}$^{\printauthorsuperscript{\key}}$%
     \fi
-    \textbf{\getname{\key}}$^{\alph{authorindex}}$%
   }%
   \par\vspace{1em}
 
-  % Print Emails and ORCIDs
+  % Print Emails and ORCIDs (Skip NEWLINE or handle line break)
   \setcounter{authorindex}{0}%
+  \setcounter{lineauthorindex}{0}%
   \foreach \key in \authororder {%
-    \stepcounter{authorindex}%
-    \ifnum\value{authorindex}>1 , \fi
-    \texttt{\footnotesize \email{\getemail{\key}}}~\orcidlink{\getorcid{\key}}%
+    \edef\testkey{\key}%
+    \def\newlinekey{NEWLINE}%
+    \ifx\testkey\newlinekey
+      \par % Keeps email block aligned with author lines
+      \setcounter{lineauthorindex}{0}%
+    \else
+      \stepcounter{authorindex}%
+      \stepcounter{lineauthorindex}%
+      \ifnum\value{lineauthorindex}>1 , \fi
+      \texttt{\footnotesize \email{\getemail{\key}}}~\orcidlink{\getorcid{\key}}%
+    \fi
   }%
 \end{center}
 
+% % Print Unique Affiliations cleanly (a, b, c...)
+% \begin{quotation}\noindent
+%   \setlength{\parindent}{0pt}%
+%   \footnotesize
+%   \setcounter{tmpcnt}{0}%
+%   \foreach \ikey in \orderedinstkeys {%
+%     \stepcounter{tmpcnt}%
+%     \ifnum\value{tmpcnt}>1 \\ \fi
+%     \par\noindent
+%     $^{\alph{tmpcnt}}$~%
+%     \parbox[t]{0.92\textwidth}{%
+%       \textit{\getinst{\ikey}}%
+%     }%
+%   }%
+% \end{quotation}
 
-% Print Affiliations
+% Print Unique Affiliations cleanly (a, b, c...)
+
 \begin{quotation}\noindent
- 	\footnotesize
- 	\setcounter{authorindex}{0}%
-% 
- 	\foreach \key in \authororder {%
-		\stepcounter{authorindex}%
-		\ifnum\value{authorindex}>1 \\ \fi
-		$^{\alph{authorindex}}$~%
-		%% keep vertical alignment if there's  a newline
-		\parbox[t]{0.92\textwidth}{%
- 	  		\textit{\getinst{\key}}%
-		}%
- 	}%
+  \setlength{\parindent}{0pt}%
+  \footnotesize
+  \setcounter{tmpcnt}{0}%
+  \foreach \ikey in \orderedinstkeys {%
+    \stepcounter{tmpcnt}%
+    \ifnum\value{tmpcnt}>1 \par\noindent\fi
+    \parbox[t]{0.95\textwidth}{%
+      % \hangindent=0.8em \hangafter=1 % Forces 2nd+ lines to align under the text
+      \makebox[0.8em][l]{$^{\alph{tmpcnt}}$}%
+      \textit{\getinst{\ikey}}%
+    }%
+  }%
 \end{quotation}
+
+
+% %%%%%%%%%%%%%%%%%%
+% %% RENDER BLOCK %%
+% %%%%%%%%%%%%%%%%%%
+
+% \begin{center}
+%   \countauthors
+  
+%   % Print Author Names with Superscript Letters
+%   \setcounter{authorindex}{0}%
+%   \foreach \key in \authororder {%
+%     \stepcounter{authorindex}%
+%     \ifnum\value{authorindex}>1 %
+%       \ifnum\value{authorindex}=\value{totalauthors} and \else, \fi
+%     \fi
+%     \textbf{\getname{\key}}$^{\printauthorsuperscript{\key}}$%
+%   }%
+%   \par\vspace{1em}
+
+%   % Print Emails and ORCIDs
+%   \setcounter{authorindex}{0}%
+%   \foreach \key in \authororder {%
+%     \stepcounter{authorindex}%
+%     \ifnum\value{authorindex}>1 , \fi
+%     \texttt{\footnotesize \email{\getemail{\key}}}~\orcidlink{\getorcid{\key}}%
+%   }%
+% \end{center}
+
+% % Print Unique Affiliations cleanly (a, b, c...)
+% \begin{quotation}\noindent
+%   \footnotesize
+%   \setcounter{tmpcnt}{0}%
+%   \foreach \ikey in \orderedinstkeys {%
+%     \stepcounter{tmpcnt}%
+%     \ifnum\value{tmpcnt}>1 \\ \fi
+%     $^{\alph{tmpcnt}}$~%
+%     \parbox[t]{0.92\textwidth}{%
+%       \textit{\getinst{\ikey}}%
+%     }%
+%   }%
+% \end{quotation}
