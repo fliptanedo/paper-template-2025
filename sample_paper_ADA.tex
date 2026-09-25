@@ -1,6 +1,12 @@
-%!TEX program = pdflatex
+%!TEX program = lualatex
 %% https://github.com/fliptanedo/paper-template-2022
 %% consider using https://github.com/google-research/arxiv-latex-cleaner
+
+\DocumentMetadata{tagging=on,
+    tagging-setup={math/setup=mathml-SE},
+    pdfstandard=ua-2,
+    lang=en-US
+}
 
 \documentclass[12pt]{article}
 
@@ -35,8 +41,7 @@
 %%%%%%%%%%%%%%%%%%%%%
 
 \begin{center}
-    {%\sffamily 
-    \huge \textbf{Paper Title} \par}
+    {\sffamily \huge \textbf{Paper Title: ADA} \par}
     \vskip .5cm
 \end{center}
 \input{FlipAuthors}
@@ -44,7 +49,7 @@
 
 \begin{abstract}
 \noindent 
-This is a simple template for my papers. It's not very different from the plain article style, but it has most of the macros I use pre-written.
+Attempt at an ADA (tagging) compatible template. Does not work yet: need to get rid of titlesec, some font choices (nix lmodern), ...
 \end{abstract}
 
 \small
